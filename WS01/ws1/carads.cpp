@@ -47,12 +47,12 @@ namespace sdds {
         double taxedPrice = m_price * (1 + g_taxrate);
 
         //If the parameter is true, the counter is reset to the initial value.
-        counter = reset;
+        if (reset) counter = 0;
 
         if (m_brand[0] != '\0') {
             cout.setf(ios::left);   //align not working
             cout.width(2);
-            cout << counter++;      //not working
+            cout << counter++;      //not working(fixed)
             cout.width(10);
             cout << m_brand;
             cout.width(15);

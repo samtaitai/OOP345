@@ -67,11 +67,11 @@ int main(int argc, char* argv[])
 				currentCar.read(in);
 
 				// Count the new cars
-				if (currentCar.getStatus() == 'N') {
+				if (currentCar.getStatus() == 'N') {		//if N, increase # of new car
 					newCars++;
 				}
-				recordedCarsOnAds[allCars++] = currentCar;
-				currentCar.display(0);
+				recordedCarsOnAds[allCars++] = currentCar;	//if U, increase # of all car
+				currentCar.display(0);						//what does it mean; set up 'counter' 
 		}
 	}
 

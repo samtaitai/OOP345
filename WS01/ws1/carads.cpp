@@ -59,10 +59,12 @@ namespace sdds {
             cout << m_model;
             cout << m_year;
             cout.width(12);
+            cout.setf(ios::fixed);                      //precision!(fixed)
+            cout.precision(2);
             cout << taxedPrice;
             cout.unsetf(ios::left);
             cout.width(12);
-            if (m_isDiscount) {
+            if (m_isDiscount) {                         
                 cout << taxedPrice * (1 - g_discount); //numbers are not right(fixed)
             }
             cout << endl;

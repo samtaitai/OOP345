@@ -15,7 +15,7 @@ namespace sdds {
 		char m_model[15 + 1]{};
 		int m_year{};
 		double m_price{};
-		char m_tag{ 'N' };
+		char m_tag{'N'};
 		bool m_isDiscount{};
 
 	public:

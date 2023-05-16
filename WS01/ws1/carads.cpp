@@ -45,26 +45,31 @@ namespace sdds {
     }
     void Cars::display(bool reset)
     {
-        static int counter{};
+        static int counter{1};
         double taxedPrice = m_price * (1 + g_taxrate);
 
         //If the parameter is true, the counter is reset to the initial value.
-        if (reset) counter = 0;
+        if (reset) counter = 1;
 
         if (m_brand[0] != '\0') {
             cout.setf(ios::left);   //align not working
             cout.width(2);
             cout << counter++;      //not working(fixed)
+            cout << ". ";
             cout.width(10);
             cout << m_brand;
-            cout.width(15);
+            cout << "| ";
+            cout.width(9);
             cout << m_model;
+            cout << " | ";
             cout << m_year;
+            cout << " |";
+            cout.unsetf(ios::left);
             cout.width(12);
             cout.setf(ios::fixed);                      //precision!(fixed)
             cout.precision(2);
             cout << taxedPrice;
-            cout.unsetf(ios::left);
+            cout << "|";
             cout.width(12);
             if (m_isDiscount) {                         
                 cout << taxedPrice * (1 - g_discount); //numbers are not right(fixed)

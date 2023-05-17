@@ -95,7 +95,7 @@ namespace sdds {
         //If the parameter is true, the counter is reset to the initial value.
         if (reset) counter = 1;
 
-        if (m_brand) {
+        if (m_brand && m_model[0] != '\0') {
             cout.setf(ios::left);   //align not working
             cout.width(2);
             cout << counter++;
@@ -135,7 +135,7 @@ namespace sdds {
     }
     Cars::operator bool() const
     {
-        return m_tag == 'N';
+        return m_tag == 'N' && m_brand != nullptr;
     }
 }
 

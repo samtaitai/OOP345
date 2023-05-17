@@ -16,9 +16,10 @@ namespace sdds {
         cout << "Command Line:" << endl;
         cout << "--------------------------" << endl;
         for (int i = 0; i < argc; i++) {
-            cout << i + 1 << ": " << argv[i] << endl;
+            cout << "  " << i + 1 << ": " << argv[i] << endl;
         }
         cout << "--------------------------" << endl;
+        cout << endl;
         return 0;
     }
     Cars& Cars::read(istream& is)
@@ -54,7 +55,6 @@ namespace sdds {
         if (m_brand[0] != '\0') {
             //cout << "  ";
             cout.setf(ios::left);   //align not working
-            cout << "  ";
             cout.width(2);
             cout << counter++;
             cout << ". ";

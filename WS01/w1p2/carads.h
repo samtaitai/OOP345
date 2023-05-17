@@ -11,7 +11,7 @@ namespace sdds {
 	int listArgs(int argc, char* argv[]);
 
 	class Cars {
-		char m_brand[10 + 1]{};
+		char* m_brand{};
 		char m_model[15 + 1]{};
 		int m_year{};
 		double m_price{};
@@ -20,6 +20,9 @@ namespace sdds {
 
 	public:
 		Cars() = default;
+		~Cars();
+		Cars(Cars& Ro);
+		Cars& operator=(const Cars& Ro);
 		Cars& read(std::istream& is);
 		void display(bool reset);
 		char getStatus();

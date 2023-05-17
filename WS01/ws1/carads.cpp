@@ -52,28 +52,30 @@ namespace sdds {
         if (reset) counter = 1;
 
         if (m_brand[0] != '\0') {
+            //cout << "  ";
             cout.setf(ios::left);   //align not working
+            cout << "  ";
             cout.width(2);
-            cout << counter++;      //not working(fixed)
+            cout << counter++;
             cout << ". ";
             cout.width(10);
             cout << m_brand;
             cout << "| ";
-            cout.width(9);
+            cout.width(15);
             cout << m_model;
-            cout << " | ";
-            cout << m_year;
-            cout << " |";
+            cout << "| ";
+            cout << m_year << " |";
             cout.unsetf(ios::left);
             cout.width(12);
             cout.setf(ios::fixed);                      //precision!(fixed)
             cout.precision(2);
             cout << taxedPrice;
             cout << "|";
-            cout.width(12);
-            if (m_isDiscount) {                         
+            if (m_isDiscount) {
+                cout.width(12);
                 cout << taxedPrice * (1 - g_discount); //numbers are not right(fixed)
             }
+            
             cout << endl;
         }
         /*

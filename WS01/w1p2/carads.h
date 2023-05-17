@@ -23,10 +23,10 @@ namespace sdds {
 		Cars& read(std::istream& is);
 		void display(bool reset);
 		char getStatus();
-		void operator>>(Cars& ro);
 		operator bool() const;
 	};
-	std::istream& operator>>(std::istream& in, Cars& ro);
+	std::istream& operator>>(std::istream& is, Cars& car);
+	void operator>>(const Cars& car1, Cars& car2); 
 
 }
 

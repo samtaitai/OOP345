@@ -22,10 +22,14 @@ namespace sdds {
         cout << endl;
         return 0;
     }
-    istream& operator>>(istream& in, Cars& ro)
+    istream& operator>>(istream& is, Cars& car)
     {
-        ro.read(in);
-        return in;
+        car.read(is);
+        return is;
+    }
+    void operator>>(const Cars& car1, Cars& car2)
+    {
+        //copies in the second parameter the content of the first parameter.
     }
     Cars& Cars::read(istream& is)
     {
@@ -95,10 +99,6 @@ namespace sdds {
     char Cars::getStatus()
     {
         return m_tag;
-    }
-    void Cars::operator>>(Cars& ro)
-    {
-        ro = *this;
     }
     Cars::operator bool() const
     {

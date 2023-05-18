@@ -31,6 +31,7 @@ namespace sdds {
     void operator>>(const Cars& car1, Cars& car2)
     {
         //copies in the second parameter the content of the first parameter.
+        car2 = car1;
     }
     Cars::~Cars()
     {
@@ -121,13 +122,15 @@ namespace sdds {
             cout << endl;
         }
         /*
-        else { //If no car brand has been stored in the current object, this query should print:
-            cout.setf(ios::left);
+        * else { //If no car brand has been stored in the current object, this query should print:
+            cout.setf(ios::left);   //align not working
             cout.width(2);
-            cout << "COUNTER. No Car" << endl; //what is it for? 
+            cout << counter++;
+            cout << ". ";
+            cout.width(10);
+            cout << "No Car";
         }
         */
-        
     }
     char Cars::getStatus()
     {

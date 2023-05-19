@@ -1,3 +1,12 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 19 May 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -6,9 +15,7 @@
 
 using namespace std;
 
-//definition for global variables?
-//do I adhere to one definition rule?
-double g_taxrate{}; 
+double g_taxrate{}; //global variable definition
 double g_discount{};  
 
 namespace sdds {
@@ -55,13 +62,13 @@ namespace sdds {
         }
         return *this;
     }
-    Cars& Cars::read(istream& is)
+    istream& Cars::read(istream& is)
     {
         char discount{};
         char temp[512];
         strcpy(temp, "\0");
 
-        if (is) {
+        if (is.peek() != EOF) { //???
             is >> m_tag;
             is.ignore();
             is.get(temp, 511, ','); 
@@ -85,8 +92,9 @@ namespace sdds {
             is >> discount;
             if (discount == 'Y') m_isDiscount = true;
             else m_isDiscount = false;
+            is.clear();
         }
-        return *this;
+        return is;
     }
     void Cars::display(bool reset)
     {
@@ -97,7 +105,7 @@ namespace sdds {
         if (reset) counter = 1;
 
         if (m_brand && m_model[0] != '\0') {
-            cout.setf(ios::left);   //align not working
+            cout.setf(ios::left);   
             cout.width(2);
             cout << counter++;
             cout << ". ";
@@ -110,27 +118,26 @@ namespace sdds {
             cout << m_year << " |";
             cout.unsetf(ios::left);
             cout.width(12);
-            cout.setf(ios::fixed);                      //precision!(fixed)
+            cout.setf(ios::fixed);                      
             cout.precision(2);
             cout << taxedPrice;
             cout << "|";
             if (m_isDiscount) {
                 cout.width(12);
-                cout << taxedPrice * (1 - g_discount); //numbers are not right(fixed)
+                cout << taxedPrice * (1 - g_discount); 
             }
             
             cout << endl;
         }
-        /*
-        * else { //If no car brand has been stored in the current object, this query should print:
-            cout.setf(ios::left);   //align not working
+        else { //If no car brand has been stored in the current object, this query should print:
+            cout.setf(ios::left);   
             cout.width(2);
             cout << counter++;
             cout << ". ";
             cout.width(10);
             cout << "No Car";
+            cout << endl;
         }
-        */
     }
     char Cars::getStatus()
     {

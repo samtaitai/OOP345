@@ -1,9 +1,18 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 19 May 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
+
 #include <iostream>
-#ifndef SDDS_CARADS_H
+#ifndef SDDS_CARADS_H //pragma once = ifndef+define+endif
 #define SDDS_CARADS_H
 
 //global variable
-extern double g_taxrate; //LNK2001 unresolved external symbol error!
+extern double g_taxrate; //global variable declaration
 extern double g_discount;
 
 namespace sdds {
@@ -23,7 +32,7 @@ namespace sdds {
 		~Cars();
 		Cars(Cars& Ro);
 		Cars& operator=(const Cars& Ro);
-		Cars& read(std::istream& is);
+		std::istream& read(std::istream& is);
 		void display(bool reset);
 		char getStatus();
 		operator bool() const;

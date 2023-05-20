@@ -39,7 +39,8 @@ namespace sdds {
 	};
 	std::istream& operator>>(std::istream& is, Cars& car);
 	void operator>>(const Cars& car1, Cars& car2); 
-
+	//global function = outside class 
+	//helper function = one of operand is class 
 }
 
 #endif

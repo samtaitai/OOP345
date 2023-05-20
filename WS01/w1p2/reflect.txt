@@ -1,0 +1,87 @@
+>> Explain in the reflection why these functions(rule of 3) are necessary and in what situation a class must implement them.
+
+Because in part2, m_brand should be able to dynamically allocate its memory which means the class 'car' has resources. Once a class have resources, the rule of 3-copy constructor, copy assignment, destructor-must be declared and implemented to avoid memory leaks. 
+
+>> the difference between internal and external linkage citing examples from your code
+
+External linkage makes a variable has a global scope, which means the variable will be recognized from all transaction units(modules). 
+
+In this workshop, it was declared in carads.h: 
+extern double g_taxrate; 
+extern double g_discount;
+
+And it was defined in carads.cpp:
+double g_taxrate{}; 
+double g_discount{};
+
+Then it was called in w1_p2.cpp:
+if (ad == 1){ 
+			g_taxrate = 0; 
+			g_discount = 0.10;
+		}
+		else{
+			g_taxrate = 0.13;
+			g_discount = 0.05;
+		}
+
+Internal linkage means it's a static variable which has a global lifetime and limited scope, for example, the function where it was declared. 
+In this workshop, the variable 'counter' is declared inside the display function and lasts until the end of the program unless it is reset. 
+
+void Cars::display(bool reset)
+    {
+        static int counter{1};
+        double taxedPrice = m_price * (1 + g_taxrate);
+
+        //If the parameter is true, the counter is reset to the initial value.
+        if (reset) counter = 1;
+
+        if (m_brand && m_model[0] != '\0') {
+            cout.setf(ios::left);   
+            cout.width(2);
+            cout << counter++;
+            cout << ". ";
+            cout.width(10);
+            cout << m_brand;
+            cout << "| ";
+            cout.width(15);
+            cout << m_model;
+            cout << "| ";
+            cout << m_year << " |";
+            cout.unsetf(ios::left);
+            cout.width(12);
+            cout.setf(ios::fixed);                      
+            cout.precision(2);
+            cout << taxedPrice;
+            cout << "|";
+            if (m_isDiscount) {
+                cout.width(12);
+                cout << taxedPrice * (1 - g_discount); 
+            }
+            
+            cout << endl;
+        }
+        else { //If no car brand has been stored in the current object, this query should print:
+            cout.setf(ios::left);   
+            cout.width(2);
+            cout << counter++;
+            cout << ". ";
+            cout.width(10);
+            cout << "No Car";
+            cout << endl;
+        }
+    }
+
+ 
+>> what are static variables and how are they useful in your solution.
+
+A static variable is an entity with internal linkage. In this workshop, the 'display' function should number how many car information are displayed. Easy run of 'display' function will display information of each car. By being declared as a local to function variable, the static variable works like a counter which counts how many times the function is called. Hence, if I ended up displaying 14 cars, the numbering also would be displayed 1 to 15. 
+
+>> the changes that you made in upgrading your Cars class in part 2.
+
+First, the data member 'm_brand' should have dynamically allocated memory. It requires to implement the rule of 3. 
+Second, 2 helper function should be added:
+std::istream& operator>>(std::istream& is, Cars& car) extract data from istream then save them to car objects, which is basically a wrapper of the read function.  
+void operator>>(const Cars& car1, Cars& car2) assigns an individual car object into the array of car, which contains assignment operation between car objects. 
+
+>> explain in the reflection what is the effect of the keyword "constexpr"
+The keyword 'constexpr' is a short form of constant expression; it means that the expression is evaluated at the compile time, not at the runtime. Because it was already evaluated(constexpr int MAX_CARS = 100;) and return the return value as a constant, at runtime it is treated as a constant value(100). 

@@ -52,7 +52,7 @@ namespace sdds {
     {
         if (Ro.m_brand && this != &Ro) {
             delete[] m_brand;
-            m_brand = new char[strlen(Ro.m_brand) + 1]; //how to use string library?
+            m_brand = new char[strlen(Ro.m_brand) + 1]; 
             strcpy(m_brand, Ro.m_brand);
             strcpy(m_model, Ro.m_model);
             m_year = Ro.m_year;
@@ -65,17 +65,16 @@ namespace sdds {
     istream& Cars::read(istream& is)
     {
         char discount{};
-        char temp[512];
-        strcpy(temp, "\0");
+        string tempStr;
 
-        if (is.peek() != EOF) { //???
+        if (is) { //no need 'is.peek() != EOF'
             is >> m_tag;
             is.ignore();
-            is.get(temp, 511, ','); 
+            getline(is, tempStr, ',');
             if (!is.fail()) {
                 delete[] m_brand;
-                m_brand = new char[strlen(temp) + 1];
-                strcpy(m_brand, temp);
+                m_brand = new char[tempStr.length() + 1];
+                strcpy(m_brand, tempStr.c_str());
                 is.ignore();
             }
             else {
@@ -92,7 +91,8 @@ namespace sdds {
             is >> discount;
             if (discount == 'Y') m_isDiscount = true;
             else m_isDiscount = false;
-            is.clear();
+            //is.clear(); not work(EOF)
+            is.ignore(); //it solved!(EOF)
         }
         return is;
     }

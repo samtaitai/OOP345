@@ -75,13 +75,11 @@ namespace sdds {
                 delete[] m_brand;
                 m_brand = new char[tempStr.length() + 1];
                 strcpy(m_brand, tempStr.c_str());
-                is.ignore();
             }
             else {
                 is.clear();
                 is.ignore(9999, '\n');
             }
-            //is.ignore();
             is.get(m_model, 14, ',');
             is.ignore();
             is >> m_year;

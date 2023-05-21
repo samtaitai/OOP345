@@ -26,7 +26,7 @@ namespace sdds {
 		TennisLog(const char* filename);
 		~TennisLog();
 		void addMatch(const TennisMatch& match);
-		TennisLog findMatches(const std::string player);
+		TennisLog& findMatches(const std::string player);
 		TennisMatch& operator[](size_t);
 		operator size_t();
 	};

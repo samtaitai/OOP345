@@ -57,6 +57,7 @@ namespace sdds {
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_loser << endl;
+			ostr.unsetf(ios::left);
 			ostr.fill(' '); //need it? 
 		}
 		else {
@@ -120,7 +121,7 @@ namespace sdds {
 			temp[i] = m_matchList[i];
 		}
 		delete[] m_matchList;
-		temp[m_numOfMatch] = match;
+		temp[m_numOfMatch] = match; //copy constructor? but std::string is not a resouce..? is it?
 
 		m_numOfMatch = m_numOfMatch + 1;
 		m_matchList = new TennisMatch[m_numOfMatch];
@@ -129,13 +130,14 @@ namespace sdds {
 		}
 		delete[] temp;
 	}
-	TennisLog TennisLog::findMatches(const std::string player)
+	TennisLog& TennisLog::findMatches(const std::string player)
 	{
 		TennisLog result;
 
+		//citation: https://cplusplus.com/reference/string/string/compare/
 		for (int i = 0; i < m_numOfMatch; i++) {
-			if (m_matchList[i].m_winner == player || m_matchList[i].m_loser == player) {
-				addMatch(m_matchList[i]);
+			if (m_matchList[i].m_winner.compare(player) == 0 || m_matchList[i].m_loser.compare(player) == 0) {
+				result.addMatch(m_matchList[i]);
 			}
 		}
 		return result;

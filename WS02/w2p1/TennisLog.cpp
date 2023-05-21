@@ -14,7 +14,7 @@ namespace sdds {
 			istr >> m_matchID;
 			istr.ignore();
 			getline(istr, m_winner, ',');
-			getline(istr, m_loser, ',');
+			getline(istr, m_loser, '\n');
 		}
 		return istr;
 	}
@@ -28,32 +28,36 @@ namespace sdds {
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_tourID << endl;
+
 			ostr.unsetf(ios::left);
 			ostr.width(20);
 			ostr << "Match ID";
+			ostr << " : ";
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_matchID << endl;
 			ostr.unsetf(ios::left);
 			ostr.width(20);
 			ostr << "Tourney";
+			ostr << " : ";
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_tourName << endl;
 			ostr.unsetf(ios::left);
 			ostr.width(20);
 			ostr << "Winner";
+			ostr << " : ";
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_winner << endl;
 			ostr.unsetf(ios::left);
 			ostr.width(20);
 			ostr << "Loser";
+			ostr << " : ";
 			ostr.setf(ios::left);
 			ostr.width(30);
 			ostr << m_loser << endl;
 			ostr.fill(' '); //need it? 
-			ostr << endl;
 		}
 		else {
 			ostr << "Empty Match";
@@ -90,18 +94,18 @@ namespace sdds {
 		ifstream file(filename);
 		
 		//read the file to count the number of matches in the file (except for 1st line)
-		count = countLines(filename);
+		count = countLines(filename); 
 
 		//allocate dynamic memory for the array of matches based on the number found
-		m_numOfMatch = count;
-		m_matchList = new TennisMatch[m_numOfMatch]; //or count-1? or post increment will cover? 
+		m_numOfMatch = count - 1; //match # = rows # - 1st row 
+		m_matchList = new TennisMatch[m_numOfMatch]; 
 		
 		//reread the file from the beginning to load the actual match data into the array
-		file.open(filename); //rewind is needed?
+		file.seekg(0, file.beg);
+		file.ignore(9999, '\n'); //discard 1st row
 		for (int i = 0; i < m_numOfMatch; i++) {
 			file >> m_matchList[i]; 
 		}
-		file.close(); //necessary?
 	}
 	TennisLog::~TennisLog()
 	{
@@ -139,8 +143,8 @@ namespace sdds {
 	TennisMatch& TennisLog::operator[](size_t num)
 	{
 		TennisMatch result;
-		if (m_numOfMatch != 0) {
-			if (m_matchList[num].m_matchID != 0) result = m_matchList[num];
+		if (m_matchList) {
+			return m_matchList[num]; //double return ok??
 		}
 		return result;
 	}

@@ -55,7 +55,7 @@ int main(int argc, char** argv)
     std::cout << tlog2[0] << std::endl;
     std::cout << tlog2[1000] << std::endl;
     std::cout << tlog2[10000] << std::endl;
-    std::cout << tlog2[size_t(tlog2) - 1] << std::endl;
+    std::cout << tlog2[size_t(tlog2) - 1] << std::endl; 
 
 
 
@@ -74,7 +74,7 @@ int main(int argc, char** argv)
     std::cout << tlog1[2] << std::endl;
     std::cout << tlog1[size_t(tlog1) - 1] << std::endl;
 
-    printHeader("Find specific player matches and display");
+    printHeader("Find specific player matches and display"); //fix it
     sdds::TennisLog found = tlog2.findMatches("Wentworth Gore");
     std::cout << "Number of matches found: " << size_t(found) << std::endl;
     std::cout << "First match found:\n" << found[0] << std::endl;

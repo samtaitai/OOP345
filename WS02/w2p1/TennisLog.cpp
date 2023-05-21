@@ -56,7 +56,7 @@ namespace sdds {
 			ostr << endl;
 		}
 		else {
-			ostr << "Empty Match" << endl;
+			ostr << "Empty Match";
 		}
 		return ostr;
 	}
@@ -75,25 +75,27 @@ namespace sdds {
 		}
 		return ostr;
 	}
+	unsigned int TennisLog::countLines(const char* filename)
+	{
+		unsigned int lines = 0u;
+		ifstream nums(filename);
+		while (nums) {
+			lines += (nums.get() == '\n');
+		}
+		return lines;
+	}
 	TennisLog::TennisLog(const char* filename)
 	{
-		int count{};
+		unsigned int count{};
 		ifstream file(filename);
 		
 		//read the file to count the number of matches in the file (except for 1st line)
-		//citation: https://www.codespeedy.com/count-the-number-of-lines-in-a-text-file-in-cpp/
-		if (file.is_open()) {
-			while (!file.eof()) {
-				count++;
-			}
-			file.close();
-		}
+		count = countLines(filename);
 
 		//allocate dynamic memory for the array of matches based on the number found
 		m_numOfMatch = count;
 		m_matchList = new TennisMatch[m_numOfMatch]; //or count-1? or post increment will cover? 
 		
-
 		//reread the file from the beginning to load the actual match data into the array
 		file.open(filename); //rewind is needed?
 		for (int i = 0; i < m_numOfMatch; i++) {
@@ -134,10 +136,12 @@ namespace sdds {
 		}
 		return result;
 	}
-	TennisMatch TennisLog::operator[](size_t num)
+	TennisMatch& TennisLog::operator[](size_t num)
 	{
 		TennisMatch result;
-		if(m_matchList[num].m_matchID != 0) result = m_matchList[num];
+		if (m_numOfMatch != 0) {
+			if (m_matchList[num].m_matchID != 0) result = m_matchList[num];
+		}
 		return result;
 	}
 	TennisLog::operator size_t()

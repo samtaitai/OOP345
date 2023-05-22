@@ -112,23 +112,29 @@ namespace sdds {
 	{
 		delete[] m_matchList;
 	}
-	void TennisLog::addMatch(const TennisMatch& match)
+	void TennisLog::addMatch(const TennisMatch& match) //supposedly working
 	{
-		//Resize the array appropriately to accommodate the new object and avoid memory leaks
 		TennisMatch* temp{};
-		temp = new TennisMatch[m_numOfMatch + 1];
-		for (int i = 0; i < m_numOfMatch; i++) {
-			temp[i] = m_matchList[i];
-		}
-		delete[] m_matchList;
-		temp[m_numOfMatch] = match; //copy constructor? but std::string is not a resouce..? is it?
 
-		m_numOfMatch = m_numOfMatch + 1;
-		m_matchList = new TennisMatch[m_numOfMatch];
-		for (int i = 0; i < m_numOfMatch; i++) {
-			m_matchList[i] = temp[i];
+		if (m_matchList == nullptr) {
+			m_numOfMatch++; //0->1
+			m_matchList = new TennisMatch[m_numOfMatch]; //1
+			m_matchList[0] = match;
 		}
-		delete[] temp;
+		else {
+			temp = new TennisMatch[m_numOfMatch]; //1
+			for (int i = 0; i < m_numOfMatch; i++) {
+				temp[i] = m_matchList[i]; //copy [0]
+			}
+			delete[] m_matchList;
+			m_numOfMatch++; //1->2
+			m_matchList = new TennisMatch[m_numOfMatch]; //2
+			for (int i = 0; i < m_numOfMatch-1; i++) { //copy [0]
+				m_matchList[i] = temp[i]; 
+			}
+			m_matchList[m_numOfMatch-1] = match; //assign to [1]
+			delete[] temp;
+		}
 	}
 	TennisLog& TennisLog::findMatches(const std::string player)
 	{
@@ -140,7 +146,7 @@ namespace sdds {
 				result.addMatch(m_matchList[i]);
 			}
 		}
-		return result;
+		return result; //result is destroyed here...!! 
 	}
 	TennisMatch& TennisLog::operator[](size_t num)
 	{

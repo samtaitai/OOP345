@@ -21,6 +21,7 @@ namespace sdds {
 
 		std::istream& read(std::istream& istr);
 		std::ostream& display(std::ostream& ostr);
+		//~TennisMatch();
 	};
 
 	class TennisLog {

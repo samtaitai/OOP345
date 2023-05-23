@@ -112,6 +112,22 @@ namespace sdds {
 	{
 		delete[] m_matchList;
 	}
+	TennisLog::TennisLog(TennisLog& Ro)
+	{
+		if(Ro.m_matchList != nullptr) operator=(Ro);
+	}
+	TennisLog& TennisLog::operator=(TennisLog& Ro)
+	{
+		if (this != &Ro && Ro.m_matchList != nullptr) {
+			delete[] m_matchList;
+			m_matchList = new TennisMatch[Ro.m_numOfMatch];
+			for (int i = 0; i < Ro.m_numOfMatch; i++) {
+				m_matchList[i] = Ro.m_matchList[i]; //error
+			}
+			m_numOfMatch = Ro.m_numOfMatch;
+		}
+		return *this;
+	}
 	void TennisLog::addMatch(const TennisMatch& match) //supposedly working
 	{
 		TennisMatch* temp{};
@@ -138,15 +154,16 @@ namespace sdds {
 	}
 	TennisLog& TennisLog::findMatches(const std::string player)
 	{
+		//sdds::TennisLog found = tlog2.findMatches("Spencer William Gore");
+		
 		TennisLog result;
-
 		//citation: https://cplusplus.com/reference/string/string/compare/
 		for (int i = 0; i < m_numOfMatch; i++) {
 			if (m_matchList[i].m_winner.compare(player) == 0 || m_matchList[i].m_loser.compare(player) == 0) {
 				result.addMatch(m_matchList[i]);
 			}
 		}
-		return result; //result is destroyed here...!! 
+		return result; 
 	}
 	TennisMatch& TennisLog::operator[](size_t num)
 	{
@@ -160,4 +177,9 @@ namespace sdds {
 	{
 		return m_numOfMatch;
 	}
+	TennisLog::operator bool() const
+	{
+		return m_matchList != nullptr && m_numOfMatch != 0;
+	}
+
 }

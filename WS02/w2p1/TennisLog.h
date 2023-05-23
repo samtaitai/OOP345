@@ -25,10 +25,13 @@ namespace sdds {
 		TennisLog() = default;
 		TennisLog(const char* filename);
 		~TennisLog();
+		TennisLog(TennisLog& Ro);
+		TennisLog& operator=(TennisLog& Ro);
 		void addMatch(const TennisMatch& match);
 		TennisLog& findMatches(const std::string player);
 		TennisMatch& operator[](size_t);
 		operator size_t();
+		operator bool() const;
 	};
 
 	std::istream& operator>>(std::istream& istr, TennisMatch& Ro);

@@ -75,10 +75,10 @@ int main(int argc, char** argv)
     std::cout << tlog1[size_t(tlog1) - 1] << std::endl;*/
 
     printHeader("Find specific player matches and display"); 
-    //sdds::TennisLog found = tlog2.findMatches("Wentworth Gore"); //fix it return(m_matchList) is garbage
-    sdds::TennisLog found = tlog2.findMatches("Spencer William Gore");
+    //sdds::TennisLog found = tlog2.findMatches("Wentworth Gore"); 
+    sdds::TennisLog found = tlog2.findMatches("Spencer William Gore"); //delete first -> assignment next 
     std::cout << "Number of matches found: " << size_t(found) << std::endl;
-    std::cout << "First match found:\n" << found[0] << std::endl;
+    std::cout << "First match found:\n" << found[0] << std::endl; //fix it it's empty
     std::cout << "Last match found:\n" << found[size_t(found) - 1] << std::endl;
 
     printHeader("Find an non existing player");

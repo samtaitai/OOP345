@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 22 May 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
 #pragma once
 #include <string>
 #include <iostream>
@@ -25,10 +33,10 @@ namespace sdds {
 		TennisLog() = default;
 		TennisLog(const char* filename);
 		~TennisLog();
-		TennisLog(TennisLog& Ro);
-		TennisLog& operator=(TennisLog& Ro);
+		TennisLog(const TennisLog& Ro); //with and without const makes difference
+		TennisLog& operator=(const TennisLog& Ro);
 		void addMatch(const TennisMatch& match);
-		TennisLog& findMatches(const std::string player);
+		TennisLog findMatches(const std::string player); //should return value
 		TennisMatch& operator[](size_t);
 		operator size_t();
 		operator bool() const;

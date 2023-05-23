@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 22 May 2023
+* Citation: 
+* std::compare inside the findMatches function is sourced from https://cplusplus.com/reference/string/string/compare/
+*/
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -112,11 +120,11 @@ namespace sdds {
 	{
 		delete[] m_matchList;
 	}
-	TennisLog::TennisLog(TennisLog& Ro)
+	TennisLog::TennisLog(const TennisLog& Ro)
 	{
 		if(Ro.m_matchList != nullptr) operator=(Ro);
 	}
-	TennisLog& TennisLog::operator=(TennisLog& Ro)
+	TennisLog& TennisLog::operator=(const TennisLog& Ro)
 	{
 		if (this != &Ro && Ro.m_matchList != nullptr) {
 			delete[] m_matchList;
@@ -152,12 +160,11 @@ namespace sdds {
 			delete[] temp;
 		}
 	}
-	TennisLog& TennisLog::findMatches(const std::string player)
+	TennisLog TennisLog::findMatches(const std::string player)
 	{
 		//sdds::TennisLog found = tlog2.findMatches("Spencer William Gore");
 		
 		TennisLog result;
-		//citation: https://cplusplus.com/reference/string/string/compare/
 		for (int i = 0; i < m_numOfMatch; i++) {
 			if (m_matchList[i].m_winner.compare(player) == 0 || m_matchList[i].m_loser.compare(player) == 0) {
 				result.addMatch(m_matchList[i]);

@@ -37,14 +37,14 @@ int main(int argc, char** argv)
 
 
 
-    /*printHeader("Empty Tennis Log entries");
+    printHeader("Empty Tennis Log entries");
 
     sdds::TennisLog tlog1;
 
     std::cout << tlog1[0] << std::endl;
     std::cout << tlog1[1000] << std::endl;
     std::cout << tlog1[10000] << std::endl;
-    std::cout << tlog1[size_t(tlog1) - 1] << std::endl;*/
+    std::cout << tlog1[size_t(tlog1) - 1] << std::endl;
 
 
 
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 
 
 
-    /*printHeader("Add to Empty Tennis Log");
+    printHeader("Add to Empty Tennis Log");
     sdds::TennisMatch t1{"2022-120", "Wimbeldon", 12, "Player 1", "Player 2"};
     sdds::TennisMatch t2{"2022-121", "US Open", 1, "Player 3", "Player 4"};
     sdds::TennisMatch t3{"2022-122", "Davis Cup", 7, "Player 5", "Player 6"};
@@ -72,11 +72,11 @@ int main(int argc, char** argv)
     std::cout << tlog1[0] << std::endl;
     std::cout << tlog1[1] << std::endl;
     std::cout << tlog1[2] << std::endl;
-    std::cout << tlog1[size_t(tlog1) - 1] << std::endl;*/
+    std::cout << tlog1[size_t(tlog1) - 1] << std::endl;
 
     printHeader("Find specific player matches and display"); 
-    //sdds::TennisLog found = tlog2.findMatches("Wentworth Gore"); 
-    sdds::TennisLog found = tlog2.findMatches("Spencer William Gore"); //delete first -> assignment next 
+    sdds::TennisLog found = tlog2.findMatches("Wentworth Gore"); 
+    //sdds::TennisLog found = tlog2.findMatches("Spencer William Gore"); //delete first -> assignment next 
     std::cout << "Number of matches found: " << size_t(found) << std::endl;
     std::cout << "First match found:\n" << found[0] << std::endl; //fix it it's empty
     std::cout << "Last match found:\n" << found[size_t(found) - 1] << std::endl;

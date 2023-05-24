@@ -130,13 +130,28 @@ namespace sdds {
 			delete[] m_matchList;
 			m_matchList = new TennisMatch[Ro.m_numOfMatch];
 			for (int i = 0; i < Ro.m_numOfMatch; i++) {
-				m_matchList[i] = Ro.m_matchList[i]; //error
+				m_matchList[i] = Ro.m_matchList[i]; 
 			}
 			m_numOfMatch = Ro.m_numOfMatch;
 		}
 		return *this;
 	}
-	void TennisLog::addMatch(const TennisMatch& match) //supposedly working
+	TennisLog::TennisLog(TennisLog&& Ro) noexcept
+	{
+		*this = std::move(Ro);
+	}
+	TennisLog& TennisLog::operator=(TennisLog&& Ro) noexcept
+	{
+		if (this != &Ro && Ro.m_matchList != nullptr) {
+			delete[] m_matchList;
+			m_matchList = Ro.m_matchList;
+			m_numOfMatch = Ro.m_numOfMatch;
+			Ro.m_matchList = nullptr;
+			Ro.m_numOfMatch = 0;
+		}
+		return *this;
+	}
+	void TennisLog::addMatch(const TennisMatch& match) 
 	{
 		TennisMatch* temp{};
 

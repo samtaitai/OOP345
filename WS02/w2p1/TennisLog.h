@@ -35,6 +35,10 @@ namespace sdds {
 		~TennisLog();
 		TennisLog(const TennisLog& Ro); //with and without const makes difference
 		TennisLog& operator=(const TennisLog& Ro);
+		//move constructor
+		TennisLog(TennisLog&& Ro) noexcept;
+		//move assignment
+		TennisLog& operator=(TennisLog&& Ro) noexcept;
 		void addMatch(const TennisMatch& match);
 		TennisLog findMatches(const std::string player); //should return value
 		TennisMatch operator[](size_t);

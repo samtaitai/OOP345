@@ -73,15 +73,11 @@ namespace sdds {
 		}
 		return ostr;
 	}
-	TennisMatch::~TennisMatch()
-	{
-		delete this;
-	}
 	std::istream& operator>>(std::istream& istr, TennisMatch& Ro)
 	{
 		return Ro.read(istr);
 	}
-	std::ostream& operator<<(std::ostream& ostr, TennisMatch& Ro)
+	std::ostream& operator<<(std::ostream& ostr, TennisMatch Ro)
 	{
 		return Ro.display(ostr);
 	}
@@ -176,13 +172,12 @@ namespace sdds {
 		}
 		return result; 
 	}
-	TennisMatch& TennisLog::operator[](size_t num)
+	TennisMatch TennisLog::operator[](size_t num)
 	{
 		//If the array isn't populated then return an empty TennisMatch instead. ??
-		TennisMatch* temp;
-		temp = new TennisMatch; //memory leak; where should I detele it?
+		TennisMatch temp;
 		if (m_matchList != nullptr) return m_matchList[num];
-		else return *temp; 
+		else return temp; 
 	}
 	TennisLog::operator size_t()
 	{

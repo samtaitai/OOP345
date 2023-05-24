@@ -1,10 +1,14 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 24 May 2023
+* Citation:
+* start/stop function logic is assisted.
+* source: https://cplusplus.com/reference/chrono/duration/duration/
+* https://stackoverflow.com/questions/57538507/how-to-convert-stdchronoduration-to-double-seconds
+*/
 #include "Timer.h"
-
-using Clock = std::chrono::high_resolution_clock;
-using TimePoint = std::chrono::time_point<Clock>;
-
-//citation: https://cplusplus.com/reference/chrono/duration/duration/
-//https://stackoverflow.com/questions/57538507/how-to-convert-stdchronoduration-to-double-seconds
 
 namespace sdds {
 
@@ -22,6 +26,6 @@ namespace sdds {
 		auto end = std::chrono::steady_clock::now();
 		nanoseconds_type diff = end - m_timestamp;
 		result = diff.count();
-		return 0;
+		return result;
 	}
 }

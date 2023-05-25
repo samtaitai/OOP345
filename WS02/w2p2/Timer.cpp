@@ -14,18 +14,25 @@ namespace sdds {
 
 	void Timer::start()
 	{
-		auto start = std::chrono::steady_clock::now();
-		m_timestamp = start;
+		m_timestamp = std::chrono::steady_clock::now();
 	}
 	long long Timer::stop()
 	{
+		//1. convert (end-start) to duration by duration cast
+		//2. convert 1. to long long by .count() 
 		long long result;
 		//# of ticks is represented in long long & tick period is nanoseconds 
-		typedef std::chrono::duration<long long, std::ratio<1, 1000000000>> nanoseconds_type;
-		
+		auto end = std::chrono::steady_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - m_timestamp);
+		long long totalTime = duration.count();
+		return totalTime;
+		/*
 		auto end = std::chrono::steady_clock::now();
 		nanoseconds_type diff = end - m_timestamp;
-		result = diff.count();
-		return result;
+		*/
+
+		//return # of ticks(in type it is represented == long long?) 
+		//result = diff.count();
+		//return result;
 	}
 }

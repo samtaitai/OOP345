@@ -14,7 +14,7 @@
 namespace sdds {
 	class Timer
 	{
-		std::chrono::time_point<std::chrono::system_clock, std::chrono::nanoseconds> m_timestamp;
+		std::chrono::time_point<std::chrono::steady_clock, std::chrono::nanoseconds> m_timestamp;
 	public:
 		void start();
 		long long stop();

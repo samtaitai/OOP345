@@ -14,7 +14,7 @@ namespace sdds {
 
 	void Timer::start()
 	{
-		m_timestamp = std::chrono::system_clock::now();
+		m_timestamp = std::chrono::steady_clock::now();
 	}
 	long long Timer::stop()
 	{

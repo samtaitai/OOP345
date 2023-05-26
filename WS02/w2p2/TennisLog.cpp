@@ -26,7 +26,7 @@ namespace sdds {
 		}
 		return istr;
 	}
-	std::ostream& TennisMatch::display(std::ostream& ostr)
+	std::ostream& TennisMatch::display(std::ostream& ostr) const
 	{
 		if (m_matchID != 0) {
 			ostr.width(20);
@@ -175,7 +175,7 @@ namespace sdds {
 			delete[] temp;
 		}
 	}
-	TennisLog TennisLog::findMatches(const std::string player)
+	TennisLog TennisLog::findMatches(const std::string player) const
 	{
 		//sdds::TennisLog found = tlog2.findMatches("Spencer William Gore");
 		
@@ -187,14 +187,14 @@ namespace sdds {
 		}
 		return result; 
 	}
-	TennisMatch TennisLog::operator[](size_t num)
+	TennisMatch TennisLog::operator[](size_t num) const
 	{
 		//If the array isn't populated then return an empty TennisMatch instead. ??
 		TennisMatch temp;
 		if (m_matchList != nullptr) return m_matchList[num];
 		else return temp; 
 	}
-	TennisLog::operator size_t()
+	TennisLog::operator size_t() const
 	{
 		return m_numOfMatch;
 	}

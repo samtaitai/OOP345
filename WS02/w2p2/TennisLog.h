@@ -20,7 +20,7 @@ namespace sdds {
 		std::string m_loser{};
 
 		std::istream& read(std::istream& istr);
-		std::ostream& display(std::ostream& ostr);
+		std::ostream& display(std::ostream& ostr) const;
 	};
 
 	class TennisLog {
@@ -40,9 +40,9 @@ namespace sdds {
 		//move assignment
 		TennisLog& operator=(TennisLog&& Ro) noexcept;
 		void addMatch(const TennisMatch& match);
-		TennisLog findMatches(const std::string player); //should return value
-		TennisMatch operator[](size_t);
-		operator size_t();
+		TennisLog findMatches(const std::string player) const; 
+		TennisMatch operator[](size_t) const;
+		operator size_t() const;
 		operator bool() const;
 	};
 

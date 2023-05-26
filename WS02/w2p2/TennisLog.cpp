@@ -142,11 +142,13 @@ namespace sdds {
 	}
 	TennisLog& TennisLog::operator=(TennisLog&& Ro) noexcept
 	{
-		if (this != &Ro && Ro.m_matchList != nullptr) {
+		//because there will be no 'dma' 
+		//Ro.m_matchList != nullptr <- this 'resouce check' not necessary
+		if (this != &Ro) {
 			delete[] m_matchList;
-			m_matchList = Ro.m_matchList;
+			m_matchList = Ro.m_matchList; //no deep copy anymore; all shallow
 			m_numOfMatch = Ro.m_numOfMatch;
-			Ro.m_matchList = nullptr;
+			Ro.m_matchList = nullptr; //empty old
 			Ro.m_numOfMatch = 0;
 		}
 		return *this;
@@ -177,7 +179,9 @@ namespace sdds {
 	}
 	TennisLog TennisLog::findMatches(const std::string player) const
 	{
-		//sdds::TennisLog found = tlog2.findMatches("Spencer William Gore");
+		//if return by reference, 
+		//when being referred out of scope, the reference will be 'dangled' one. 
+		//=> return by value
 		
 		TennisLog result;
 		for (int i = 0; i < m_numOfMatch; i++) {

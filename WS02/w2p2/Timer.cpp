@@ -22,6 +22,7 @@ namespace sdds {
 		//2. convert 1. to long long by .count() 
 		std::chrono::time_point<std::chrono::steady_clock, std::chrono::nanoseconds> end = 
 			std::chrono::steady_clock::now(); 
+		//auto diff for convenience
 		std::chrono::nanoseconds diff = 
 			std::chrono::duration_cast<std::chrono::nanoseconds>(end - m_timestamp);
 		long long totalTime = diff.count();

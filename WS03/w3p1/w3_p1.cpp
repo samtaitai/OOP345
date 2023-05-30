@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 		std::cout << "Item [9]: " << colFloats[9] << "\n";
 		std::cout << "******************************************************\n\n";
 	}
-	/*
+	
 	{
 		std::cout << "******************************************************\n";
 		std::cout << "* Testing the Queue of Dictionary Objects            *\n";
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 		                           << queueDictionary[9].getDefinition() << "]\n";
 		std::cout << "******************************************************\n\n";
 	}
-	*/
+	
 
 	return cout;
 }

@@ -17,13 +17,15 @@ namespace sdds {
 	template <typename T, unsigned int N>
 	class Queue
 	{
+	
 		T m_queue[N]; //what would be its default value? 
+		unsigned int m_queueLength;
 		//static member
 		static T dummy;
-		static unsigned int pushes;
+		//static unsigned int pushes;
 
 	public:
-		Queue() = default;
+		Queue();
 		Queue(unsigned int capacity);
 		virtual ~Queue() = default;
 		virtual bool push(const T& item); //looking for update ver
@@ -33,16 +35,12 @@ namespace sdds {
 		T operator[](unsigned int index);
 	};
 
-	template<typename T>
-	class UniqueQueue : public Queue<T, 100>
-	{
-	public:
-		bool push(const T& item);
-	};
-
 	//initialization of static member
+	/*
 	template <typename T, unsigned int N>
 	unsigned int Queue<T, N>::pushes{};
+	*/
+	
 
 	template <typename T, unsigned int N>
 	T Queue<T, N>::dummy{};
@@ -51,17 +49,18 @@ namespace sdds {
 	template <>
 	Dictionary Queue<Dictionary, 100u>::dummy{ "Empty Term", "Empty Substitute" };
 	
-	/*
+	
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()
 	{
 		T temp{};
-
+		
 		for (unsigned int i = 0; i < N; i++) {
 			m_queue[i] = temp;
 		}
+		m_queueLength = 0;
 	}
-	*/
+	
 
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue(unsigned int capacity)
@@ -71,15 +70,16 @@ namespace sdds {
 		for (unsigned int i = 0; i < capacity; i++) {
 			m_queue[i] = temp;
 		}
+		m_queueLength = 0;
 	}
 	
 	template<typename T, unsigned int N>
 	inline bool Queue<T, N>::push(const T& item)
 	{
 		bool result{};
-		if (N > pushes) {
-			m_queue[pushes-1] = item;
-			pushes++;
+		if (N > m_queueLength) {
+			m_queue[m_queueLength] = item;
+			m_queueLength++;
 			result = true;
 		}
 		return result;
@@ -88,19 +88,20 @@ namespace sdds {
 	template<typename T, unsigned int N>
 	inline T Queue<T, N>::pop()
 	{
-		T poped = m_queue[pushes - 1];
+		T poped = m_queue[0];
 
-		for (unsigned int i = 0; i < pushes - 2; i++) {
+		for (unsigned int i = 0; i < m_queueLength - 2; i++) {
 			m_queue[i] = m_queue[i + 1];
 		}
-		m_queue[pushes - 1] = T();
+		m_queue[m_queueLength - 1] = T();
+		m_queueLength--;
 		return poped;
 	}
 
 	template<typename T, unsigned int N>
 	inline unsigned int Queue<T, N>::size()
 	{
-		return pushes;
+		return m_queueLength;
 	}
 
 	template<typename T, unsigned int N>
@@ -109,7 +110,7 @@ namespace sdds {
 		os << "----------------------" << std::endl;
 		os << "| Dictionary Content |" << std::endl;
 		os << "----------------------" << std::endl;
-		for (unsigned int i = 0; i < pushes; i++) {
+		for (unsigned int i = 0; i < m_queueLength; i++) {
 			os << m_queue[i] << std::endl;
 		}
 		os << "----------------------" << std::endl;
@@ -120,48 +121,11 @@ namespace sdds {
 	inline T Queue<T, N>::operator[](unsigned int index)
 	{
 		T result{};
-		if (index >= pushes) result = dummy;
+		if (index >= m_queueLength) result = dummy;
 		else result = m_queue[index];
 		return result;
 	}
 
-	template<typename T>
-	inline bool UniqueQueue<T>::push(const T& item)
-	{
-		//override the inherited function push to prevent adding an item 
-		//if it already exists in the UniqueQueue.
-		bool result{};
-		unsigned int found{};
-
-		for (unsigned int i = 0; i < pushes; i++) {
-			if (m_queue[i] == item) found += 1;
-		}
-
-		if (N > pushes && found == 0) {
-			m_queue[pushes - 1] = item;
-			pushes++;
-			result = true;
-		}
-		return result;
-	}
-
-	//push specialization
-	template<>
-	inline bool UniqueQueue<double>::push(const double& item) {
-		bool result{};
-		unsigned int found{};
-
-		for (unsigned int i = 0; i < pushes; i++) {
-			if (std::abs(m_queue[i] - item) <= 0.005) found += 1;
-		}
-
-		if (N > pushes && found == 0) {
-			m_queue[pushes - 1] = item;
-			pushes++;
-			result = true;
-		}
-		return result;
-	}
 }
 
 

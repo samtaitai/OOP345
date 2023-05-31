@@ -1,3 +1,0 @@
-Explain in the reflection why we do not split this module into *.h and *.cpp like you did in the previous workshops.
-
-In the reflection justify why it was necessary to add each one of the members you have decided to add.

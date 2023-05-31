@@ -1,0 +1,7 @@
+Explain in the reflection why we do not split this module into *.h and *.cpp like you did in the previous workshops.
+
+In the reflection justify why it was necessary to add each one of the members you have decided to add.
+
+the reason for specializing the push() member function.
+the reason for defining the class variable outside the class definition.
+answers to the other questions in these specifications.

@@ -9,6 +9,8 @@
 */
 #pragma once
 #include <iostream>
+#include <cmath>
+#include <cstdlib>
 #include "Dictionary.h"
 
 namespace sdds {
@@ -21,13 +23,23 @@ namespace sdds {
 		static unsigned int pushes;
 
 	public:
-		Queue();
-		bool push(const T& item);
+		Queue() = default;
+		Queue(unsigned int capacity);
+		virtual ~Queue() = default;
+		virtual bool push(const T& item); //looking for update ver
 		T pop();
 		unsigned int size();
 		std::ostream& display(std::ostream& os = std::cout);
 		T operator[](unsigned int index);
 	};
+
+	template<typename T>
+	class UniqueQueue : public Queue<T, 100>
+	{
+	public:
+		bool push(const T& item);
+	};
+
 	//initialization of static member
 	template <typename T, unsigned int N>
 	unsigned int Queue<T, N>::pushes{};
@@ -39,6 +51,7 @@ namespace sdds {
 	template <>
 	Dictionary Queue<Dictionary, 100u>::dummy{ "Empty Term", "Empty Substitute" };
 	
+	/*
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()
 	{
@@ -48,13 +61,24 @@ namespace sdds {
 			m_queue[i] = temp;
 		}
 	}
+	*/
+
+	template<typename T, unsigned int N>
+	inline Queue<T, N>::Queue(unsigned int capacity)
+	{
+		T temp{};
+
+		for (unsigned int i = 0; i < capacity; i++) {
+			m_queue[i] = temp;
+		}
+	}
 	
 	template<typename T, unsigned int N>
 	inline bool Queue<T, N>::push(const T& item)
 	{
 		bool result{};
-		if (N >= pushes) {
-			m_queue[pushes] = item;
+		if (N > pushes) {
+			m_queue[pushes-1] = item;
 			pushes++;
 			result = true;
 		}
@@ -101,6 +125,43 @@ namespace sdds {
 		return result;
 	}
 
+	template<typename T>
+	inline bool UniqueQueue<T>::push(const T& item)
+	{
+		//override the inherited function push to prevent adding an item 
+		//if it already exists in the UniqueQueue.
+		bool result{};
+		unsigned int found{};
+
+		for (unsigned int i = 0; i < pushes; i++) {
+			if (m_queue[i] == item) found += 1;
+		}
+
+		if (N > pushes && found == 0) {
+			m_queue[pushes - 1] = item;
+			pushes++;
+			result = true;
+		}
+		return result;
+	}
+
+	//push specialization
+	template<>
+	inline bool UniqueQueue<double>::push(const double& item) {
+		bool result{};
+		unsigned int found{};
+
+		for (unsigned int i = 0; i < pushes; i++) {
+			if (std::abs(m_queue[i] - item) <= 0.005) found += 1;
+		}
+
+		if (N > pushes && found == 0) {
+			m_queue[pushes - 1] = item;
+			pushes++;
+			result = true;
+		}
+		return result;
+	}
 }
 
 

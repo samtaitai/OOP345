@@ -1,5 +1,9 @@
 #pragma once
-class UniqueQueue
-{
-};
+
+namespace sdds {
+	class UniqueQueue
+	{
+	};
+}
+
 

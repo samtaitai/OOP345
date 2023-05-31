@@ -26,6 +26,8 @@ namespace sdds {
 		//       Implement them in the Dictionary.cpp file.
 		Dictionary();
 		std::ostream& display(std::ostream& os) const;
+		// ==operator 
+		bool operator==(Dictionary& Ro);
 	};
 	std::ostream& operator<< (std::ostream& os, const Dictionary& Ro);
 }

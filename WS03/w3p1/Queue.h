@@ -17,6 +17,7 @@ namespace sdds {
 	{
 		T m_queue[N]; //what would be its default value? 
 		//static member
+		static T dummy;
 		static unsigned int pushes;
 
 	public:
@@ -25,11 +26,18 @@ namespace sdds {
 		T pop();
 		unsigned int size();
 		std::ostream& display(std::ostream& os = std::cout);
-		T operator[](int index);
+		T operator[](unsigned int index);
 	};
 	//initialization of static member
 	template <typename T, unsigned int N>
 	unsigned int Queue<T, N>::pushes{};
+
+	template <typename T, unsigned int N>
+	T Queue<T, N>::dummy{};
+
+	//initialization of static member
+	template <>
+	Dictionary Queue<Dictionary, 100u>::dummy{ "Empty Term", "Empty Substitute" };
 	
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()
@@ -37,15 +45,6 @@ namespace sdds {
 		T temp{};
 
 		for (unsigned int i = 0; i < N; i++) {
-			m_queue[i] = temp;
-		}
-	}
-
-	//speicialization of constructor
-	template<>
-	inline Queue<Dictionary, 100u>::Queue() {
-		Dictionary temp{ "Empty Term", "Empty Substitute" };
-		for (unsigned int i = 0; i < 100u; i++) {
 			m_queue[i] = temp;
 		}
 	}
@@ -94,9 +93,12 @@ namespace sdds {
 	}
 
 	template<typename T, unsigned int N>
-	inline T Queue<T, N>::operator[](int index)
+	inline T Queue<T, N>::operator[](unsigned int index)
 	{
-		return m_queue[index];
+		T result{};
+		if (index >= pushes) result = dummy;
+		else result = m_queue[index];
+		return result;
 	}
 
 }

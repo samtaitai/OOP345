@@ -17,19 +17,19 @@ namespace sdds {
 	{
 		T m_queue[N]; //what would be its default value? 
 		//static member
-		static int pushes;
+		static unsigned int pushes;
 
 	public:
 		Queue();
 		bool push(const T& item);
 		T pop();
-		int size();
+		unsigned int size();
 		std::ostream& display(std::ostream& os = std::cout);
 		T operator[](int index);
 	};
 	//initialization of static member
 	template <typename T, unsigned int N>
-	int Queue<T, N>::pushes{};
+	unsigned int Queue<T, N>::pushes{};
 	
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()
@@ -67,7 +67,7 @@ namespace sdds {
 	{
 		T poped = m_queue[pushes - 1];
 
-		for (int i = 0; i < pushes - 2; i++) {
+		for (unsigned int i = 0; i < pushes - 2; i++) {
 			m_queue[i] = m_queue[i + 1];
 		}
 		m_queue[pushes - 1] = T();
@@ -75,7 +75,7 @@ namespace sdds {
 	}
 
 	template<typename T, unsigned int N>
-	inline int Queue<T, N>::size()
+	inline unsigned int Queue<T, N>::size()
 	{
 		return pushes;
 	}
@@ -86,9 +86,10 @@ namespace sdds {
 		os << "----------------------" << std::endl;
 		os << "| Dictionary Content |" << std::endl;
 		os << "----------------------" << std::endl;
-		for (int i = 0; i < pushes; i++) {
+		for (unsigned int i = 0; i < pushes; i++) {
 			os << m_queue[i] << std::endl;
 		}
+		os << "----------------------" << std::endl;
 		return os;
 	}
 

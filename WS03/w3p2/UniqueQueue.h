@@ -1,5 +1,6 @@
 #pragma once
 #include "Queue.h"
+#include "Dictionary.h"
 
 namespace sdds {
 	template<typename T>
@@ -20,7 +21,7 @@ namespace sdds {
 
 		//erase duplicate logic
 		for (unsigned int i = 0; i < size; i++) {
-			if (item == Queue<T, 100>::operator[](i)) found = true; //how to? 
+			if (Queue<T, 100>::operator[](i) == item) found = true; //how to? 
 		}
 
 		if (100 > Queue<T, 100>::size() && found == false) {

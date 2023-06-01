@@ -17,12 +17,10 @@ namespace sdds {
 	template <typename T, unsigned int N>
 	class Queue
 	{
-	
 		T m_queue[N]; //what would be its default value? 
 		unsigned int m_queueLength;
 		//static member
 		static T dummy;
-		//static unsigned int pushes;
 
 	public:
 		Queue();
@@ -34,13 +32,6 @@ namespace sdds {
 		std::ostream& display(std::ostream& os = std::cout);
 		T operator[](unsigned int index);
 	};
-
-	//initialization of static member
-	/*
-	template <typename T, unsigned int N>
-	unsigned int Queue<T, N>::pushes{};
-	*/
-	
 
 	template <typename T, unsigned int N>
 	T Queue<T, N>::dummy{};

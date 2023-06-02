@@ -19,7 +19,7 @@ namespace sdds {
 	{
 		T m_queue[N]; //what would be its default value? 
 		unsigned int m_queueLength;
-		//static member
+		//static member: empty one for any types
 		static T dummy;
 
 	public:
@@ -81,8 +81,8 @@ namespace sdds {
 	{
 		T poped = m_queue[0];
 
-		for (unsigned int i = 0; i < m_queueLength - 2; i++) {
-			m_queue[i] = m_queue[i + 1];
+		for (unsigned int i = 1; i < m_queueLength; i++) {
+			m_queue[i-1] = m_queue[i];
 		}
 		m_queue[m_queueLength - 1] = T();
 		m_queueLength--;

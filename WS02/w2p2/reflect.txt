@@ -2,6 +2,9 @@
 In the move operation, we can save time and resources for dynamic allocated memory operation and for copying attributes. All we need to do is to have a pointer pointing the other(the right operand in the signature) then have the pointer that pointed 'the other' pointing nullptr. That's why we can see the significant difference between process times.  
 
 >>describe approach taken to read the input file (tennis-data.csv) in the TennisLog constructor and populate the dynamic array. Is there any way to avoid rereading the file?
+/*
+Regarding the reading of the file twice, consider the idea of using addmatch in the constructor to effectively allocate each line read in. Would this be a good approach?
+*/
 My way to do was to count every rows in the csv file to know how big the size of array would be which I took a convenient function that I learned in OOP244. Next, since the 1st row of the csv file was not about the match, (my count - 1) would be the number of matches(=the size of array). Now I can dynamically allocate memory for the array with the number. To populate the array, I found I need to rewind the file. That's where seekg function comes in. After rewinding it back to the beginning, ignore the first line, then I started populating. To be honest, I don't know how not to rewind the file then achieve the task. will be happy to know! 
 
 >>in the links above to chrono library, you were directed to use a steady_clock to take a timestamp. Do some research and explain the difference between a steady_clock and a system_clock. Are they the same? When should each one be used?

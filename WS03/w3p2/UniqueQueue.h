@@ -42,7 +42,7 @@ namespace sdds {
 
 		//erase duplicate logic
 		for (unsigned int i = 0; i < size; i++) {
-			if (item == Queue<double, 100>::operator[](i)) found = true;
+			if (std::abs(Queue<double, 100>::operator[](i)-item) <= 0.005) found = true;
 		}
 
 		if (100 > Queue<double, 100>::size() && found == false) {

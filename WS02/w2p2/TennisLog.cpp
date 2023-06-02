@@ -153,6 +153,13 @@ namespace sdds {
 		}
 		return *this;
 	}
+	/*
+	There isn't much need to code for the case of zero Matches 
+	as the the code that does the non zero case would cover it as well. 
+	Similarly you can avoid allocating memory/copying the array twice 
+	by assigning the temporary array with increased size to the original pointer 
+	after deallocating it.
+	*/
 	void TennisLog::addMatch(const TennisMatch& match) 
 	{
 		TennisMatch* temp{};

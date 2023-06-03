@@ -28,9 +28,9 @@ namespace sdds {
 		virtual ~Queue() = default;
 		virtual bool push(const T& item); //looking for update ver
 		T pop();
-		unsigned int size();
-		std::ostream& display(std::ostream& os = std::cout);
-		T operator[](unsigned int index);
+		unsigned int size() const;
+		std::ostream& display(std::ostream& os = std::cout) const;
+		T operator[](unsigned int index) const;
 	};
 
 	template <typename T, unsigned int N>
@@ -91,13 +91,13 @@ namespace sdds {
 	}
 
 	template<typename T, unsigned int N>
-	inline unsigned int Queue<T, N>::size()
+	inline unsigned int Queue<T, N>::size() const
 	{
 		return m_queueLength;
 	}
 
 	template<typename T, unsigned int N>
-	inline std::ostream& Queue<T, N>::display(std::ostream& os)
+	inline std::ostream& Queue<T, N>::display(std::ostream& os) const
 	{
 		os << "----------------------" << std::endl;
 		os << "| Dictionary Content |" << std::endl;
@@ -110,7 +110,7 @@ namespace sdds {
 	}
 
 	template<typename T, unsigned int N>
-	inline T Queue<T, N>::operator[](unsigned int index)
+	inline T Queue<T, N>::operator[](unsigned int index) const
 	{
 		T result{};
 		if (index >= m_queueLength) result = dummy;

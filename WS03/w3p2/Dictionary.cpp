@@ -29,7 +29,7 @@ namespace sdds {
 		return os; 
 
 	}
-	bool Dictionary::operator==(const Dictionary& Ro)
+	bool Dictionary::operator==(const Dictionary& Ro) const
 	{
 		return m_term.compare(Ro.m_term) == 0 && m_definition.compare(Ro.m_definition) == 0;
 	}

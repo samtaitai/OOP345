@@ -27,7 +27,7 @@ namespace sdds {
 		Dictionary();
 		std::ostream& display(std::ostream& os) const;
 		// ==operator 
-		bool operator==(const Dictionary& Ro);
+		bool operator==(const Dictionary& Ro) const;
 	};
 	std::ostream& operator<< (std::ostream& os, const Dictionary& Ro);
 }

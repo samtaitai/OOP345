@@ -1,7 +1,14 @@
-Explain in the reflection why we do not split this module into *.h and *.cpp like you did in the previous workshops.
+>>Explain in the reflection why we do not split this module into *.h and *.cpp like you did in the previous workshops.
+I tried to split them into two part: Queue.h(class declaration), Queue.cpp(implementations). Even though I imported "Queue.h", the compiler doesn't recognize Queue(and Dictionary). It treats Queue as a incomplete template, not as a class. Templated class is an incomplete class before it's actually called. Queue<T,N> can be anytype of class(int, double, Dictionary...etc) but before being called, it's not a class. Hence, it is not splittable. 
 
-In the reflection justify why it was necessary to add each one of the members you have decided to add.
+>>In the reflection justify why it was necessary to add each one of the members you have decided to add.
+I added: default constructor, display, << operator, == operator. 
+First, I need a default constructor to initialize the array of Dictionary type with filling the array with the safe empty state of Dictionary type.
+Second, I need to display the content of Dictionary object, but there's no signature for interaction between ostream and Dictionary type. That's why I added them. 
+Third, There's also no signature for interaction between == operator and Dictionary type. In order to find if two Dictionary types are identical or not, I need my custom logic for it. 
 
-the reason for specializing the push() member function.
-the reason for defining the class variable outside the class definition.
-answers to the other questions in these specifications.
+>>the reason for specializing the push() member function.
+Because in case of double, we introduce a new logic; if the difference falls into a specific range(less than 0.005), we count it as the same(==). That's why we need to create a specialized version. 
+
+>>the reason for defining the class variable outside the class definition.
+The class variable belongs to the class, not each instance. Even though the template will be applied to various types and create instances based on those types, the class variable is independent. That's why its initialization doesn't happen inside the class.  

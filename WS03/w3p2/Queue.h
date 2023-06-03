@@ -36,10 +36,11 @@ namespace sdds {
 	template <typename T, unsigned int N>
 	T Queue<T, N>::dummy{};
 
-	//initialization of static member
+	//initialization(specialize) of static member
 	template <>
 	Dictionary Queue<Dictionary, 100u>::dummy{ "Empty Term", "Empty Substitute" };
-	
+	//either is fine
+	//Dictionary Queue<Dictionary, 100u>::dummy = Dictionary{ "Empty Term", "Empty Substitute" };
 	
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()

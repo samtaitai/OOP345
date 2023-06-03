@@ -8,6 +8,7 @@ namespace sdds {
 	{
 	public:
 		bool push(const T& item);
+		~UniqueQueue() = default;
 	};
 
 	template<typename T>

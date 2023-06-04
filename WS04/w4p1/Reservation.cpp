@@ -1,7 +1,9 @@
 #include "Reservation.h"
 
+using namespace std;
+
 namespace sdds {
-	Reservation::Reservation(const std::string& res)
+	Reservation::Reservation(const string& res)
 	{
 		//receives the reservation as a string
 		//extracting information about the reservation from the string and storing the tokens in the instance's attributes
@@ -23,12 +25,45 @@ namespace sdds {
 		//email needs trimming
 		m_email = res.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
 
-		m_numOfPeople = std::stoi(res.substr(idxC2 + 1, (idxC3 - idxC2 - 1)));
-		m_day = std::stoi(res.substr(idxC3 + 1, (idxC4 - idxC3 - 1)));
-		m_hour = std::stoi(res.substr(idxC4 + 1));
+		m_numOfPeople = stoi(res.substr(idxC2 + 1, (idxC3 - idxC2 - 1)));
+		m_day = stoi(res.substr(idxC3 + 1, (idxC4 - idxC3 - 1)));
+		m_hour = stoi(res.substr(idxC4 + 1));
 		
 	}
-	std::ostream& operator<<(std::ostream& os, const Reservation& Ro)
+	Reservation& Reservation::update(int day, int time)
+	{
+		m_day = day;
+		m_hour = time;
+		return *this;
+	}
+	ostream& Reservation::display(ostream& os) const
+	{
+		if (m_hour >= 6 && m_hour <= 9) {
+			os.width(10);
+			os << m_id << ": ";
+			os.width(20);
+			os << m_name;
+			os.width(20);
+			os.setf(ios::left);
+			os << '<' << m_email << '>';
+			os.unsetf(ios::left);
+			os << "Breakfast on day " << m_day << " @ " << m_hour << ":00 for ";
+			if (m_numOfPeople == 1) {
+				os << m_numOfPeople << " person." << endl;
+			}
+			else {
+				os << m_numOfPeople << " people." << endl;
+			}
+		}
+		else if (m_hour >= 11 && m_hour <= 15) {
+		}
+		else if (m_hour >= 17 && m_hour <= 21) {
+		}
+		else {
+		}
+		return os;
+	}
+	ostream& operator<<(ostream& os, const Reservation& Ro)
 	{
 		return Ro.display(os);
 	}

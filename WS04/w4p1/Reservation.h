@@ -16,7 +16,7 @@ namespace sdds {
 	public:
 		Reservation() = default;
 		Reservation(const std::string& res);
-		void update(int day, int time);
+		Reservation& update(int day, int time);
 		std::ostream& display(std::ostream& os) const;
 	};
 	std::ostream& operator<<(std::ostream& os, const Reservation& Ro);

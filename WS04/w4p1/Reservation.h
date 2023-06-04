@@ -1,3 +1,12 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 4 June 2023
+* Citation:
+* For trim function, credit is:
+* https://www.positioniseverything.net/cpp-string-trim/
+*/
 #pragma once
 #include <string>
 #include <iostream>
@@ -18,8 +27,10 @@ namespace sdds {
 		Reservation(const std::string& res);
 		Reservation& update(int day, int time);
 		std::ostream& display(std::ostream& os) const;
+		std::string trim(std::string& str);
 	};
 	std::ostream& operator<<(std::ostream& os, const Reservation& Ro);
+	
 }
 
 

@@ -45,10 +45,10 @@ namespace sdds {
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue()
 	{
-		T temp{};
+		//T temp{};
 		
 		for (unsigned int i = 0; i < N; i++) {
-			m_queue[i] = temp;
+			m_queue[i] = dummy;
 		}
 		m_queueLength = 0;
 	}
@@ -57,10 +57,10 @@ namespace sdds {
 	template<typename T, unsigned int N>
 	inline Queue<T, N>::Queue(unsigned int capacity)
 	{
-		T temp{};
+		//T temp{};
 
 		for (unsigned int i = 0; i < capacity; i++) {
-			m_queue[i] = temp;
+			m_queue[i] = dummy;
 		}
 		m_queueLength = 0;
 	}

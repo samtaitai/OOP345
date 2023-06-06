@@ -128,7 +128,7 @@ int main(int argc, char** argv)
 		std::cout << "==========================\n\n";
 	}
 
-
+	/*
 	// Confirmation Sender
 	{
 		std::cout << "CS: Testing Constructor\n";
@@ -214,6 +214,6 @@ int main(int argc, char** argv)
 	for (auto i = 0u; i < cnt; ++i)
 		delete ppReservations[i];
 	delete[] ppReservations;
-
+	*/
 	return cout;
 }

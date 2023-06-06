@@ -11,6 +11,15 @@
 using namespace std;
 
 namespace sdds {
+	/*void Reservation::setEmpty()
+	{
+		m_id = "";
+		m_name = "";
+		m_email = "";
+		m_numOfPeople = 0;
+		m_day = 0;
+		m_hour = 0;
+	}*/
 	Reservation::Reservation(const string& res)
 	{
 		size_t idxColon = res.find(':');
@@ -42,6 +51,7 @@ namespace sdds {
 	}
 	Reservation& Reservation::operator=(const Reservation& Ro)
 	{
+		//setEmpty();
 		if (this != &Ro) {
 			m_id = Ro.m_id;
 			m_name = Ro.m_name;

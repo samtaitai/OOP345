@@ -21,6 +21,7 @@ namespace sdds {
 		int m_numOfPeople{};
 		int m_day{};
 		int m_hour{};
+		//void setEmpty();
 
 	public:
 		Reservation() = default;

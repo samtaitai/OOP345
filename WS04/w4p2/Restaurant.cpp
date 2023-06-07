@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 6 June 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
 #include "Restaurant.h"
 #include "Reservation.h"
 
@@ -10,12 +18,6 @@ namespace sdds {
 
 		for (int i = 0; i < cnt; i++) {
 			
-			/*Reservation res;
-			res = *(reservations[i]);
-			m_ppReservations[i] = &res;*/
-
-			//*m_ppReservations[i] = *reservations[i];
-
 			m_ppReservations[i] = new Reservation(*reservations[i]);
 		}
 		m_cnt = cnt;

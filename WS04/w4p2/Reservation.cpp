@@ -51,9 +51,8 @@ namespace sdds {
 	}
 	Reservation& Reservation::operator=(const Reservation& Ro)
 	{
-		//setEmpty();
 		if (this != &Ro) {
-			m_id = Ro.m_id;
+			m_id = Ro.m_id; //read violation
 			m_name = Ro.m_name;
 			m_email = Ro.m_email;
 			m_numOfPeople = Ro.m_numOfPeople;

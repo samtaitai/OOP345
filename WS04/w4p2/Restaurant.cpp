@@ -6,19 +6,19 @@ using namespace std;
 namespace sdds {
 	Restaurant::Restaurant(const Reservation** reservations, size_t cnt)
 	{
-		Reservation* temp = nullptr;
-		temp = new Reservation[cnt];
+		m_ppReservations = new Reservation * [cnt];
 
-		for (int i = 0; i < cnt; i++) {
-			temp[i] = *(reservations[i]);
-		}
-
-		m_ppReservations = new Reservation* [cnt];
 		for (int i = 0; i < cnt; i++) {
 			
-			m_ppReservations[i] = &temp[i]; //expect copy constructor
+			/*Reservation res;
+			res = *(reservations[i]);
+			m_ppReservations[i] = &res;*/
+
+			//*m_ppReservations[i] = *reservations[i];
+
+			m_ppReservations[i] = new Reservation(*reservations[i]);
 		}
-		//delete[] temp;
+		m_cnt = cnt;
 	}
 
 	Restaurant::~Restaurant()
@@ -33,14 +33,11 @@ namespace sdds {
 
 	Restaurant& Restaurant::operator=(const Restaurant& Ro)
 	{
-		m_ppReservations = nullptr;
-		m_cnt = 0;
-
 		if (this != &Ro) {
 			delete[] m_ppReservations;
 			m_ppReservations = new Reservation*[Ro.size()];
 			for (int i = 0; i < Ro.size(); i++) {
-				m_ppReservations[i] = Ro.m_ppReservations[i];
+				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]);
 			}
 			m_cnt = Ro.m_cnt;
 		}
@@ -74,7 +71,7 @@ namespace sdds {
 		os << "--------------------------" << endl;
 		os << "Fancy Restaurant (" << getCalled << ')' << endl;
 		os << "--------------------------" << endl;
-		if (getCalled == 0) {
+		if (m_cnt == 0) {
 			os << "This restaurant is empty!" << endl;
 		}
 		else {

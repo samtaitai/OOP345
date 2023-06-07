@@ -4,7 +4,7 @@
 namespace sdds {
 	class Restaurant
 	{
-		Reservation** m_ppReservations{}; //array of pointers
+		Reservation** m_ppReservations{}; //array of Reservation pointers
 		size_t m_cnt{};
 
 	public:

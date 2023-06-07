@@ -76,34 +76,14 @@ namespace sdds {
 	}
 	ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res)
 	{
-		bool found{};
-		size_t foundIdx{};
+		/*
+		To challenge yourself, try to actually resize the array. <- ???
+		*/
 
 		for (int i = 0; i < m_cnt; i++) {
 			if (m_ppReservations[i] == &res) {
-				found = true;
-				foundIdx = i;
+				m_ppReservations[i] = nullptr;
 			}
-		}
-
-		if (found) {
-			const Reservation** temp{};
-			temp = new const Reservation * [m_cnt - 1];
-
-			for (int i = 0; i < m_cnt; i++) {
-				if (i != foundIdx) {
-					temp[i] = m_ppReservations[i];
-				}
-			}
-
-			m_cnt--;
-			delete[] m_ppReservations;
-			m_ppReservations = new const Reservation * [m_cnt];
-
-			for (int i = 0; i < m_cnt; i++) {
-				m_ppReservations[i] = temp[i];
-			}
-			delete[] temp;
 		}
 		return *this;
 	}
@@ -121,7 +101,7 @@ namespace sdds {
 		}
 		else {
 			for (int i = 0; i < m_cnt; i++) {
-				m_ppReservations[i]->display(os);
+				if(m_ppReservations[i] != nullptr) m_ppReservations[i]->display(os);
 			}
 		}
 		os << "--------------------------" << endl;

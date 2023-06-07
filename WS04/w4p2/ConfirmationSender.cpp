@@ -28,7 +28,7 @@ namespace sdds {
 		if (this != &Ro) {
 			delete[] m_ppReservations;
 			m_ppReservations = new const Reservation * [Ro.size()];
-			for (int i = 0; i < Ro.size(); i++) {
+			for (size_t i = 0; i < Ro.size(); i++) {
 				m_ppReservations[i] = Ro.m_ppReservations[i];
 			}
 			m_cnt = Ro.m_cnt;
@@ -58,7 +58,7 @@ namespace sdds {
 		stores the address of res in the array (your function should not make copies of the reservation itself)
 		*/
 		bool found{};
-		for (int i = 0; i < m_cnt; i++) {
+		for (size_t i = 0; i < m_cnt; i++) {
 			if (m_ppReservations[i] == &res) found = true;
 		}
 
@@ -66,7 +66,7 @@ namespace sdds {
 			const Reservation** temp{};
 			temp = new const Reservation * [m_cnt + 1];
 			
-			for (int i = 0; i < m_cnt; i++) {
+			for (size_t i = 0; i < m_cnt; i++) {
 				temp[i] = m_ppReservations[i];
 			}
 			temp[m_cnt] = &res;
@@ -75,7 +75,7 @@ namespace sdds {
 			delete[] m_ppReservations;
 			m_ppReservations = new const Reservation * [m_cnt];
 
-			for (int i = 0; i < m_cnt; i++) {
+			for (size_t i = 0; i < m_cnt; i++) {
 				m_ppReservations[i] = temp[i];
 			}
 			delete[] temp;
@@ -88,7 +88,7 @@ namespace sdds {
 		To challenge yourself, try to actually resize the array. <- ???
 		*/
 
-		for (int i = 0; i < m_cnt; i++) {
+		for (size_t i = 0; i < m_cnt; i++) {
 			if (m_ppReservations[i] == &res) {
 				m_ppReservations[i] = nullptr;
 			}
@@ -108,7 +108,7 @@ namespace sdds {
 			os << "There are no confirmations to send!" << endl;
 		}
 		else {
-			for (int i = 0; i < m_cnt; i++) {
+			for (size_t i = 0; i < m_cnt; i++) {
 				if(m_ppReservations[i] != nullptr) m_ppReservations[i]->display(os);
 			}
 		}

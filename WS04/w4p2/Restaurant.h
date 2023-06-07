@@ -27,7 +27,6 @@ namespace sdds {
 		std::ostream& display(std::ostream& os) const;
 		Reservation* operator[](size_t idx) const;
 	};
-	static int getCalled{}; //only visible Restaurant module
 	std::ostream& operator<<(std::ostream& os, const Restaurant& Ro);
 
 }

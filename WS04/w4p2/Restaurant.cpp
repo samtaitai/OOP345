@@ -12,11 +12,13 @@
 using namespace std;
 
 namespace sdds {
+	static int getCalled{};
+
 	Restaurant::Restaurant(const Reservation** reservations, size_t cnt)
 	{
 		m_ppReservations = new Reservation * [cnt];
 
-		for (int i = 0; i < cnt; i++) {
+		for (size_t i = 0; i < cnt; i++) {
 			
 			m_ppReservations[i] = new Reservation(*reservations[i]);
 		}
@@ -38,7 +40,7 @@ namespace sdds {
 		if (this != &Ro) {
 			delete[] m_ppReservations;
 			m_ppReservations = new Reservation*[Ro.size()];
-			for (int i = 0; i < Ro.size(); i++) {
+			for (size_t i = 0; i < Ro.size(); i++) {
 				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]);
 			}
 			m_cnt = Ro.m_cnt;
@@ -77,7 +79,7 @@ namespace sdds {
 			os << "This restaurant is empty!" << endl;
 		}
 		else {
-			for (int i = 0; i < m_cnt; i++) {
+			for (size_t i = 0; i < m_cnt; i++) {
 				m_ppReservations[i]->display(os);
 			}
 		}

@@ -1,0 +1,76 @@
+>> the difference between the implementations of a composition and an aggregation.
+In the case of composition(Reservation-Restaurant), inside the Retaurant constructor, a new Reservation is created. 
+Restaurant::Restaurant(const Reservation** reservations, size_t cnt)
+	{
+		m_ppReservations = new Reservation * [cnt];
+
+		for (int i = 0; i < cnt; i++) {
+			
+			m_ppReservations[i] = new Reservation(*reservations[i]);
+			//below is not working, cause reservation is const, m_ppReservations is not.
+			m_ppReservations[i] = reservations[i];
+		}
+		m_cnt = cnt;
+	}
+
+In the case of aggregation(Reservation-ConfirmationSender), inside the ConfirmationSender constructor, there's no memory allocation('new' keyword) happens. Also, ConfirmationSender has const Reservation** as a type of attribute. Hence, the array of Reservation pointers can point what other ConfirmationSender's array is pointing to. 
+
+>> the difference between the implementations of move and copy functions in a composition and an aggregation.
+copy operation involves DMA. move operation doesn't. 
+For composition, copy operation involves DMA.('new' keyword) For aggregation, it doesn't. 
+I didn't find difference between composition and aggregation's move operation. 
+
+In the case of composition(Reservation-Restaurant),
+//copy
+Restaurant& Restaurant::operator=(const Restaurant& Ro)
+	{
+		if (this != &Ro) {
+			delete[] m_ppReservations;
+			m_ppReservations = new Reservation*[Ro.size()];
+			for (int i = 0; i < Ro.size(); i++) {
+				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]);
+			}
+			m_cnt = Ro.m_cnt;
+		}
+		return *this;
+	}
+//move
+Restaurant& Restaurant::operator=(Restaurant&& Ro) noexcept
+	{
+		if (this != &Ro) {
+			delete[] m_ppReservations;
+			m_ppReservations = Ro.m_ppReservations;
+			m_cnt = Ro.m_cnt;
+			Ro.m_ppReservations = nullptr;
+			Ro.m_cnt = 0;
+		}
+		return *this;
+	}
+
+In the case of aggregation(Reservation-ConfirmationSender), 
+//copy
+ConfirmationSender& ConfirmationSender::operator=(const ConfirmationSender& Ro)
+	{
+		if (this != &Ro) {
+			delete[] m_ppReservations;
+			m_ppReservations = new const Reservation * [Ro.size()];
+			for (int i = 0; i < Ro.size(); i++) {
+				m_ppReservations[i] = Ro.m_ppReservations[i];
+			}
+			m_cnt = Ro.m_cnt;
+		}
+		return *this;
+	}
+
+//move
+ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& Ro) noexcept
+	{
+		if (this != &Ro) {
+			delete[] m_ppReservations;
+			m_ppReservations = Ro.m_ppReservations;
+			m_cnt = Ro.m_cnt;
+			Ro.m_ppReservations = nullptr;
+			Ro.m_cnt = 0;
+		}
+		return *this;
+	}

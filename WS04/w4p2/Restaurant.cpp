@@ -16,17 +16,20 @@ namespace sdds {
 
 	Restaurant::Restaurant(const Reservation** reservations, size_t cnt)
 	{
-		m_ppReservations = new Reservation * [cnt];
+		m_ppReservations = new Reservation * [cnt]; //delete
 
 		for (size_t i = 0; i < cnt; i++) {
 			
-			m_ppReservations[i] = new Reservation(*reservations[i]);
+			m_ppReservations[i] = new Reservation(*reservations[i]); //fix
 		}
 		m_cnt = cnt;
 	}
 
 	Restaurant::~Restaurant()
 	{
+		for (size_t i = 0; i < m_cnt; i++) {
+			delete m_ppReservations[i];
+		}
 		delete[] m_ppReservations;
 	}
 
@@ -38,10 +41,13 @@ namespace sdds {
 	Restaurant& Restaurant::operator=(const Restaurant& Ro)
 	{
 		if (this != &Ro) {
+			for (size_t i = 0; i < m_cnt; i++) {
+				delete m_ppReservations[i];
+			}
 			delete[] m_ppReservations;
 			m_ppReservations = new Reservation*[Ro.size()];
 			for (size_t i = 0; i < Ro.size(); i++) {
-				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]);
+				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]); //delete?
 			}
 			m_cnt = Ro.m_cnt;
 		}

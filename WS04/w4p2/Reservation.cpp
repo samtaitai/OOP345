@@ -11,15 +11,6 @@
 using namespace std;
 
 namespace sdds {
-	/*void Reservation::setEmpty()
-	{
-		m_id = "";
-		m_name = "";
-		m_email = "";
-		m_numOfPeople = 0;
-		m_day = 0;
-		m_hour = 0;
-	}*/
 	Reservation::Reservation(const string& res)
 	{
 		size_t idxColon = res.find(':');
@@ -28,15 +19,12 @@ namespace sdds {
 		size_t idxC3 = res.find(',', idxC2 + 1);
 		size_t idxC4 = res.find(',', idxC3 + 1);
 
-		//ID needs trimming
 		m_id = res.substr(0, idxColon);
 		m_id = this->trim(m_id);
 
-		//name needs trimming
 		m_name = res.substr(idxColon+1, (idxC1-idxColon-1));
 		m_name = this->trim(m_name);
 
-		//email needs trimming
 		m_email = res.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
 		m_email = this->trim(m_email);
 		m_email = "<" + m_email + ">";
@@ -120,8 +108,8 @@ namespace sdds {
 	std::string Reservation::trim(std::string& str)
 	{
 		const std::string WHITESPACE = " \n\r\t\f\v";
-		str.erase(str.find_last_not_of(WHITESPACE) + 1);
-		str.erase(0, str.find_first_not_of(WHITESPACE));
+		str.erase(str.find_last_not_of(WHITESPACE) + 1); //"..charlie****" from e+1 to end
+		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
 	}
 	ostream& operator<<(ostream& os, const Reservation& Ro)

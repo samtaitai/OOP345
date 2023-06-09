@@ -17,7 +17,7 @@ namespace sdds {
 	}
 	ConfirmationSender::~ConfirmationSender()
 	{
-		delete[] m_ppReservations;
+		delete[] m_ppReservations; //just one-layer for delete
 	}
 	ConfirmationSender::ConfirmationSender(const ConfirmationSender& Ro)
 	{

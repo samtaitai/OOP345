@@ -17,11 +17,13 @@ In the case of aggregation(Reservation-ConfirmationSender), inside the Confirmat
 
 >> the difference between the implementations of move and copy functions in a composition and an aggregation.
 copy operation involves DMA. move operation doesn't. 
-For composition, copy operation involves DMA.('new' keyword) For aggregation, it doesn't. 
+For composition, copy operation involves DMA, two times; for the size of array-much memory and for each element-much memory. Hence, there should be two-layers for deallocation. 
+For aggregation, it only needs one time DMA for the size of array-much memory. 
+
 I didn't find difference between composition and aggregation's move operation. 
 
 In the case of composition(Reservation-Restaurant),
-//copy
+//copy(composition)
 Restaurant& Restaurant::operator=(const Restaurant& Ro)
 	{
 		if (this != &Ro) {
@@ -34,21 +36,7 @@ Restaurant& Restaurant::operator=(const Restaurant& Ro)
 		}
 		return *this;
 	}
-//move
-Restaurant& Restaurant::operator=(Restaurant&& Ro) noexcept
-	{
-		if (this != &Ro) {
-			delete[] m_ppReservations;
-			m_ppReservations = Ro.m_ppReservations;
-			m_cnt = Ro.m_cnt;
-			Ro.m_ppReservations = nullptr;
-			Ro.m_cnt = 0;
-		}
-		return *this;
-	}
-
-In the case of aggregation(Reservation-ConfirmationSender), 
-//copy
+//copy(aggregation)
 ConfirmationSender& ConfirmationSender::operator=(const ConfirmationSender& Ro)
 	{
 		if (this != &Ro) {
@@ -62,15 +50,8 @@ ConfirmationSender& ConfirmationSender::operator=(const ConfirmationSender& Ro)
 		return *this;
 	}
 
-//move
-ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& Ro) noexcept
-	{
-		if (this != &Ro) {
-			delete[] m_ppReservations;
-			m_ppReservations = Ro.m_ppReservations;
-			m_cnt = Ro.m_cnt;
-			Ro.m_ppReservations = nullptr;
-			Ro.m_cnt = 0;
-		}
-		return *this;
-	}
+there's no difference in move operation between composition and aggregation.
+
+>> Identify places in your code where you have used association, aggregation and composition relations.
+Composition: between Restaurant class and Reservation class; to create an array of reservation pointer, and the reservation pointer itself; constructor, operator=
+Aggregation: between ConfirmationSender class and Reservation class; to create an array of reservation pointer; operator=, operator+=

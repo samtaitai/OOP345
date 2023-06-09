@@ -16,11 +16,11 @@ namespace sdds {
 
 	Restaurant::Restaurant(const Reservation** reservations, size_t cnt)
 	{
-		m_ppReservations = new Reservation * [cnt]; //delete
+		m_ppReservations = new Reservation * [cnt]; //allocate size of array
 
 		for (size_t i = 0; i < cnt; i++) {
 			
-			m_ppReservations[i] = new Reservation(*reservations[i]); //fix
+			m_ppReservations[i] = new Reservation(*reservations[i]); //allocate each element
 		}
 		m_cnt = cnt;
 	}
@@ -28,9 +28,9 @@ namespace sdds {
 	Restaurant::~Restaurant()
 	{
 		for (size_t i = 0; i < m_cnt; i++) {
-			delete m_ppReservations[i];
+			delete m_ppReservations[i]; //disallocate each element
 		}
-		delete[] m_ppReservations;
+		delete[] m_ppReservations; //disallocate size of array-much memory
 	}
 
 	Restaurant::Restaurant(const Restaurant& Ro)
@@ -47,7 +47,7 @@ namespace sdds {
 			delete[] m_ppReservations;
 			m_ppReservations = new Reservation*[Ro.size()];
 			for (size_t i = 0; i < Ro.size(); i++) {
-				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]); //delete?
+				m_ppReservations[i] = new Reservation(*Ro.m_ppReservations[i]); 
 			}
 			m_cnt = Ro.m_cnt;
 		}

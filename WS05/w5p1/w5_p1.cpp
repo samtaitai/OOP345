@@ -1,3 +1,12 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 12 June 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
+
 // Workshop 5 - Functions and Error Handling
 // 2020/02 - Cornel
 // 2021/01/19 - Chris

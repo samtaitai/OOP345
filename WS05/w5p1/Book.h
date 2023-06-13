@@ -22,6 +22,7 @@ namespace sdds {
 
 	public:
 		Book() = default;
+		~Book() = default;
 		Book(const std::string& strBook);
 		Book(const Book& Ro);
 		Book& operator= (const Book& Ro);
@@ -30,7 +31,7 @@ namespace sdds {
 		const size_t& year() const;
 		double& price();
 		std::ostream& display(std::ostream& os) const;
-		std::string trim(std::string& str);
+		std::string& trim(std::string& str);
 		Book& setPrice(double newPrice);
 	};
 	std::ostream& operator<<(std::ostream& os, const Book& Ro);

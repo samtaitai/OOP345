@@ -17,9 +17,9 @@ namespace sdds {
 		size_t idxC3 = strBook.find(',', idxC2 + 1);
 		size_t idxC4 = strBook.find(',', idxC3 + 1);
 
-		m_author = strBook.substr(0, idxC);
-		m_author = this->trim(m_author);
-		m_title = strBook.substr(idxC + 1, (idxC1 - idxC - 1));
+		m_author = strBook.substr(0, idxC); //
+		m_author = this->trim(m_author); //
+		m_title = strBook.substr(idxC + 1, (idxC1 - idxC - 1)); //
 		m_title = this->trim(m_title);
 		m_country = strBook.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
 		m_country = this->trim(m_country);
@@ -83,7 +83,7 @@ namespace sdds {
 
 		return os;
 	}
-	std::string Book::trim(std::string& str)
+	std::string& Book::trim(std::string& str)
 	{
 		const std::string WHITESPACE = " \n\r\t\f\v";
 		str.erase(str.find_last_not_of(WHITESPACE) + 1); //"..charlie****" from e+1 to end

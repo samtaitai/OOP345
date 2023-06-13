@@ -56,7 +56,9 @@ int main(int argc, char** argv)
 			std::getline(file, strBook);
 			if (file) {
 				if (strBook[0] != '#') {
-					library[cnt] = *(new sdds::Book(strBook)); //why?
+					library[cnt] = sdds::Book(strBook); 
+					//wrong
+					//library[cnt] = *(new sdds::Book(strBook));
 					cnt++;
 				}
 			}
@@ -117,6 +119,12 @@ int main(int argc, char** argv)
 
 
 	std::cout << "-----------------------------------------\n";
+
+	/*for (auto book : library)
+		delete &book;*/
+
+	/*for (auto i = 0u; i < cnt; ++i)
+		delete &library[i];*/
 
 	return 0;
 }

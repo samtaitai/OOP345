@@ -23,6 +23,7 @@ namespace sdds {
 		double& price();
 		std::ostream& display(std::ostream& os) const;
 		std::string trim(std::string& str);
+		Book& setPrice(double newPrice);
 	};
 	std::ostream& operator<<(std::ostream& os, const Book& Ro);
 }

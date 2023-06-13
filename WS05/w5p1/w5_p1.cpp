@@ -70,8 +70,15 @@ int main(int argc, char** argv)
 	//            and save the new price in the book object
 	//       - if the book was published in UK between 1990 and 1999 (inclussive),
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
-
-
+	
+	auto fixUsd = [&](Book& book) { 
+		if(book.country() == "US") 
+			book.setPrice(book.price() * usdToCadRate);  
+	};
+	auto fixGbp = [&](Book& book) { 
+		if(book.country() == "UK" and book.year() >= 1990 and book.year() <= 1999)
+			book.setPrice(book.price() * gbpToCadRate);
+	};
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
@@ -86,8 +93,10 @@ int main(int argc, char** argv)
 
 	// TODO: iterate over the library and update the price of each book
 	//         using the lambda defined above.
-
-
+	for (auto i = 0u; i < cnt; ++i) {
+		fixUsd(library[i]);
+		fixGbp(library[i]);
+	}
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content (updated prices)\n";

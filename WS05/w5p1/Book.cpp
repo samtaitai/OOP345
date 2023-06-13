@@ -3,15 +3,6 @@ using namespace std;
 namespace sdds {
 	Book::Book(const std::string& strBook)
 	{
-		/*
-		std::string m_author{};
-		std::string m_title{};
-		std::string m_country{};
-		size_t m_year{};
-		double m_price{};
-		std::string m_desc{};
-		*/
-		
 		size_t idxC = strBook.find(',');
 		size_t idxC1 = strBook.find(',', idxC + 1);
 		size_t idxC2 = strBook.find(',', idxC1 + 1);
@@ -90,6 +81,11 @@ namespace sdds {
 		str.erase(str.find_last_not_of(WHITESPACE) + 1); //"..charlie****" from e+1 to end
 		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
+	}
+	Book& Book::setPrice(double newPrice)
+	{
+		m_price = newPrice;
+		return *this;
 	}
 	std::ostream& operator<<(std::ostream& os, const Book& Ro)
 	{

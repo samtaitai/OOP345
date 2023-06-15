@@ -72,16 +72,11 @@ int main(int argc, char** argv)
 			std::getline(file, strBook);
 			if (file) {
 				if (strBook[0] != '#') {
-					library[cnt] = sdds::Book(strBook);
-					//wrong
-					//library[cnt] = *(new sdds::Book(strBook));
+					library += sdds::Book(strBook); //use += operator
 					cnt++;
 				}
 			}
-		} while (file);
-
-		file.close();
-
+		} while (file && cnt < 4);
 
 		/*
 		 ♪ Hey, I just met you,      ♪
@@ -93,9 +88,17 @@ int main(int argc, char** argv)
 		library.setObserver(bookAddedObserver);
 
 		// TODO: add the rest of the books from the file.
+		do {
+			std::getline(file, strBook);
+			if (file) {
+				if (strBook[0] != '#') {
+					library += sdds::Book(strBook); //use += operator
+					cnt++;
+				}
+			}
+		} while (file && cnt < 4);
 
-
-
+		file.close();
 	}
 	else
 	{

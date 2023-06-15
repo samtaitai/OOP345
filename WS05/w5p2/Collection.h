@@ -22,7 +22,12 @@ namespace sdds {
 		T* operator[](const std::string& title) const;
 	};
 	template <typename T>
-	std::ostream& operator<<(std::ostream& os, Collection<T>& Ro);
+	std::ostream& operator<<(std::ostream& os, Collection<T>& Ro) {
+		for (int i = 0; i < Ro.m_cnt; i++) {
+			os << Ro.m_array[i];
+		}
+		return os;
+	};
 
 	template<typename T>
 	Collection<T>::Collection(const std::string& name)
@@ -84,12 +89,32 @@ namespace sdds {
 
 	template<typename T>
 	T& Collection<T>::operator[](size_t idx) const {
-
+		if (idx > m_cnt) {
+			throw std::out_of_range("Bad index" + idx + "Collection has " + m_cnt + " items.");
+		}
+		else {
+			return m_array[idx];
+		}
 	}
 
 	template<typename T>
 	T* Collection<T>::operator[](const std::string& title) const {
+		bool found{};
+		int idx{};
+		T* result = nullptr;
 
+		for (int i = 0; i < m_cnt; i++) {
+			if (m_array[i].title() == title) {
+				found = true;
+				idx = i;
+			}
+		}
+
+		if (found) {
+			result = m_array[idx];
+		}
+
+		return result;
 	}
 }
 

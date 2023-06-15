@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 	size_t cnt = 0;
 
 	// get the books
-	sdds::Collection<sdds::Book> library("Bestsellers");
+	sdds::Collection<sdds::Book> library("Bestsellers"); //m_array is nullptr
 	if (argc == 5) {
 		// TODO: load the first 4 books from the file "argv[1]".
 		//       - read one line at a time, and pass it to the Book constructor
@@ -94,6 +94,7 @@ int main(int argc, char** argv)
 				if (strBook[0] != '#') {
 					library += sdds::Book(strBook); //use += operator
 					cnt++;
+					//how to call observer?
 				}
 			}
 		} while (file && cnt < 7);
@@ -147,6 +148,7 @@ int main(int argc, char** argv)
 
 	// Process the file
 	Movie movies[5];
+	cnt = 0;
 	if (argc > 2) {
 		// TODO: load 5 movies from the file "argv[2]".
 		//       - read one line at a time, and pass it to the Movie constructor

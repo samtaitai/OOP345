@@ -9,7 +9,7 @@ namespace sdds {
 		std::string m_name;
 		T* m_array;
 		int m_cnt;
-		void (*m_funcPtr)(const Collection<T>&, const T&); //??
+		void (*m_funcPtr)(const Collection<T>&, const T&); //Collection<Book>, Book
 
 	public:
 		Collection(const std::string& name);
@@ -56,6 +56,7 @@ namespace sdds {
 
 	template<typename T>
 	void Collection<T>::setObserver(void (*observer)(const Collection<T>&, const T&)) {
+		//1st parameter: ex. bookAddedObserver(Collection<Book>, Book)
 		m_funcPtr = observer;
 	}
 
@@ -64,29 +65,37 @@ namespace sdds {
 		bool found{};
 		T* temp = nullptr;
 
-		for (int i = 0; i < m_cnt; i++) {
-			if (m_array[i].title() == item.title()) found = true;
-		}
+		if (m_array != nullptr) {
+			for (int i = 0; i < m_cnt; i++) {
+				if (m_array[i].title() == item.title()) found = true;
+			}
 
-		if (found) {
-			temp = new T[m_cnt + 1];
-			for (int i = 0; i < m_cnt; i++) {
-				temp[i] = m_array[i];
+			if (!found) {
+				temp = new T[m_cnt + 1];
+				for (int i = 0; i < m_cnt; i++) {
+					temp[i] = m_array[i];
+				}
+				temp[m_cnt] = item;
+				delete[] m_array;
+				m_cnt++;
+				m_array = new T[m_cnt];
+				for (int i = 0; i < m_cnt; i++) {
+					m_array[i] = temp[i];
+				}
+				delete[] temp;
 			}
-			temp[m_cnt] = item;
-			delete[] m_array;
-			m_cnt++;
-			m_array = new T[m_cnt];
-			for (int i = 0; i < m_cnt; i++) {
-				m_array[i] = temp[i];
-			}
-			delete[] temp;
 		}
+		else {
+			m_array = new T[m_cnt+1];
+			m_array[m_cnt] = item;
+			m_cnt++;
+		}
+		
 		//if an observer has been registered, this operator calls the observer 
 		//function passing the current object (*this) and the new item as arguments.
-		m_funcPtr(*this, item);
+		if(m_funcPtr != nullptr && !found) m_funcPtr(*this, item);
 
-		return *this; //access violation
+		return *this; 
 	}
 
 	template<typename T>

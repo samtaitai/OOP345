@@ -23,8 +23,8 @@ namespace sdds {
 	};
 	template <typename T>
 	std::ostream& operator<<(std::ostream& os, Collection<T>& Ro) {
-		for (int i = 0; i < Ro.m_cnt; i++) {
-			os << Ro.m_array[i];
+		for (int i = 0; i < Ro.size(); i++) {
+			os << Ro[i];
 		}
 		return os;
 	};
@@ -41,7 +41,7 @@ namespace sdds {
 	template<typename T>
 	Collection<T>::~Collection() {
 		delete[] m_array;
-		delete[] m_funcPtr;
+		//delete[] m_funcPtr;
 	}
 
 	template<typename T>
@@ -85,12 +85,19 @@ namespace sdds {
 		//if an observer has been registered, this operator calls the observer 
 		//function passing the current object (*this) and the new item as arguments.
 		m_funcPtr(*this, item);
+
+		return *this; //access violation
 	}
 
 	template<typename T>
 	T& Collection<T>::operator[](size_t idx) const {
+		//string operator+ (const string & lhs, const string & rhs);
 		if (idx > m_cnt) {
-			throw std::out_of_range("Bad index" + idx + "Collection has " + m_cnt + " items.");
+			std::string idxToStr = std::to_string(idx);
+			std::string sizeToStr = std::to_string(m_cnt);
+			std::string errStr = "Bad index [" + idxToStr + 
+				"]. Collection has [" + sizeToStr + "] items.";
+			throw std::out_of_range(errStr);
 		}
 		else {
 			return m_array[idx];
@@ -111,7 +118,7 @@ namespace sdds {
 		}
 
 		if (found) {
-			result = m_array[idx];
+			*result = m_array[idx];
 		}
 
 		return result;

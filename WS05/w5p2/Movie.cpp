@@ -19,7 +19,7 @@ namespace sdds {
 		m_desc = strMovie.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
 		m_desc = this->trim(m_desc);
     }
-    std::ostream& Movie::display(std::ostream& os)
+    std::ostream& Movie::display(std::ostream& os) const
     {
 		os.width(40);
 		os << m_title;
@@ -28,6 +28,7 @@ namespace sdds {
 		os << m_year;
 		os << " | ";
 		os << m_desc << endl;
+		return os;
     }
 	std::string& Movie::trim(std::string& str)
 	{
@@ -36,7 +37,7 @@ namespace sdds {
 		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
 	}
-    std::ostream& operator<<(std::ostream& os, Movie& Ro)
+    std::ostream& operator<<(std::ostream& os, const Movie& Ro)
     {
         return Ro.display(os);
     }

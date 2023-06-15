@@ -87,7 +87,7 @@ int main(int argc, char** argv)
 		 */
 		library.setObserver(bookAddedObserver);
 
-		// TODO: add the rest of the books from the file.
+		// TODO: add the rest of the books from the file. = new book?
 		do {
 			std::getline(file, strBook);
 			if (file) {
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 					cnt++;
 				}
 			}
-		} while (file && cnt < 4);
+		} while (file && cnt < 7);
 
 		file.close();
 	}
@@ -152,10 +152,23 @@ int main(int argc, char** argv)
 		//       - read one line at a time, and pass it to the Movie constructor
 		//       - store each movie read into the array "movies"
 		//       - lines that start with "#" are considered comments and should be ignored
+		std::ifstream file(argv[2]);
+		if (!file) {
+			std::cerr << "ERROR: Cannot open file [" << argv[2] << "].\n";
+			exit(AppErrors::CannotOpenFile);
+		}
+		std::string strMovie;
+		do {
+			std::getline(file, strMovie);
+			if (file) {
+				if (strMovie[0] != '#') {
+					movies[cnt] = sdds::Movie(strMovie); 
+					cnt++;
+				}
+			}
+		} while (file);
 
-
-
-
+		file.close();
 	}
 
 	std::cout << "-----------------------------------------\n";
@@ -186,8 +199,13 @@ int main(int argc, char** argv)
 		//       If an exception occurs print a message in the following format
 		//** EXCEPTION: ERROR_MESSAGE<endl>
 		//         where ERROR_MESSAGE is extracted from the exception object.
-		for (auto i = 0u; i < 10; ++i)
-			std::cout << theCollection[i];
+		try {
+			for (auto i = 0u; i < 10; ++i)
+				std::cout << theCollection[i];
+		}
+		catch (std::out_of_range err) {
+			std::cout << "** EXCEPTION: " << err.what() << std::endl;
+		}
 
 	std::cout << "-----------------------------------------\n\n";
 
@@ -212,8 +230,11 @@ int main(int argc, char** argv)
 					theCollection[j].fixSpelling(sp);
 				sp.showStatistics(std::cout);
 			}
+			catch (std::out_of_range err) {
+				std::cout << "** EXCEPTION: " << err.what() << std::endl;
+			}
 			catch(const char* err){
-				std::cout << err << std::endl;
+				std::cout << "** EXCEPTION: " << err << std::endl;
 			}
 	}
 	if (argc < 3) {

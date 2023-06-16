@@ -22,10 +22,9 @@ namespace sdds {
 				idx1 = strWords.find_first_of(WHITESPACE);
 				idx2 = strWords.find_last_of(WHITESPACE);
 				m_badWords[cnt] = strWords.substr(0, idx1);
-				m_goodWords[cnt] = strWords.substr(idx2+1);
+				m_goodWords[cnt] = strWords.substr(idx2 + 1);
 				cnt++;
-			} while (file);
-			
+			} while (!file.eof());
 		}
 		else {
 			throw "Bad file name!";

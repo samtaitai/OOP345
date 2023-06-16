@@ -5,8 +5,8 @@
 namespace sdds {
 	class SpellChecker
 	{
-		std::string m_badWords[6]{};
-		std::string m_goodWords[6]{};
+		std::string m_badWords[6];
+		std::string m_goodWords[6];
 		static int count[6];
 
 	public:

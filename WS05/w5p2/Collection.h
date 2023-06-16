@@ -101,7 +101,7 @@ namespace sdds {
 	template<typename T>
 	T& Collection<T>::operator[](size_t idx) const {
 		//string operator+ (const string & lhs, const string & rhs);
-		if (idx > m_cnt) {
+		if (idx >= m_cnt) {
 			std::string idxToStr = std::to_string(idx);
 			std::string sizeToStr = std::to_string(m_cnt);
 			std::string errStr = "Bad index [" + idxToStr + 

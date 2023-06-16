@@ -1,6 +1,6 @@
 >>the difference between the implementations/utilizations of a functor and a lambda expression. When is appropriate to use each one?
 
-Functor can hold state. Lambda cannot cause it's merely a function. Hence, in this workshop, functor(SpellChecker) has a counter which can record how many the functor is called. 
+Functor can hold state. Lambda cannot cause it's merely a function. Hence, in this workshop, functor(SpellChecker) has a counter or the dictionary of good & bad words. 
 
 that's my functor:
 namespace sdds {

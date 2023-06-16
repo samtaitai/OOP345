@@ -16,7 +16,7 @@ namespace sdds {
 	{
 		std::string m_name;
 		T* m_array;
-		int m_cnt;
+		size_t m_cnt;
 		void (*m_funcPtr)(const Collection<T>&, const T&); //Collection<Book>, Book
 
 	public:
@@ -31,7 +31,7 @@ namespace sdds {
 	};
 	template <typename T>
 	std::ostream& operator<<(std::ostream& os, Collection<T>& Ro) {
-		for (int i = 0; i < Ro.size(); i++) {
+		for (size_t i = 0; i < Ro.size(); i++) {
 			os << Ro[i];
 		}
 		return os;
@@ -74,7 +74,7 @@ namespace sdds {
 		T* temp = nullptr;
 
 		if (m_array != nullptr) {
-			for (int i = 0; i < m_cnt; i++) {
+			for (size_t i = 0; i < m_cnt; i++) {
 				if (m_array[i].title() == item.title()) found = true;
 			}
 
@@ -87,7 +87,7 @@ namespace sdds {
 				delete[] m_array;
 				m_cnt++;
 				m_array = new T[m_cnt];
-				for (int i = 0; i < m_cnt; i++) {
+				for (size_t i = 0; i < m_cnt; i++) {
 					m_array[i] = temp[i];
 				}
 				delete[] temp;
@@ -127,7 +127,7 @@ namespace sdds {
 		int idx{};
 		T* result = nullptr;
 
-		for (int i = 0; i < m_cnt; i++) {
+		for (size_t i = 0; i < m_cnt; i++) {
 			if (m_array[i].title() == title) {
 				found = true;
 				idx = i;

@@ -46,10 +46,10 @@ namespace sdds {
 	void SpellChecker::operator()(std::string& text) //m_desc
 	{
 		for (int i = 0; i < 6; i++) {
-			if (text.find(m_badWords[i]) != -1) {
+			if ((int)text.find(m_badWords[i]) != -1) {
 				text.replace(text.find(m_badWords[i]), m_badWords[i].size(), m_goodWords[i]);
 				count[i]++;
-				if (text.find(m_badWords[i]) != -1) {
+				if ((int)text.find(m_badWords[i]) != -1) {
 					text.replace(text.find(m_badWords[i]), m_badWords[i].size(), m_goodWords[i]);
 					count[i]++;
 				}

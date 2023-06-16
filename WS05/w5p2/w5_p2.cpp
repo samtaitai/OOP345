@@ -213,7 +213,7 @@ int main(int argc, char** argv)
 			for (auto i = 0u; i < 10; ++i)
 				std::cout << theCollection[i];
 		}
-		catch (std::out_of_range err) {
+		catch (std::out_of_range& err) {
 			std::cout << "** EXCEPTION: " << err.what() << std::endl;
 		}
 
@@ -240,7 +240,7 @@ int main(int argc, char** argv)
 					theCollection[j].fixSpelling(sp);
 				sp.showStatistics(std::cout);
 			}
-			catch (std::out_of_range err) {
+			catch (std::out_of_range& err) {
 				std::cout << "** EXCEPTION: " << err.what() << std::endl;
 			}
 			catch(const char* err){

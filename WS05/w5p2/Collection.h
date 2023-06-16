@@ -80,7 +80,7 @@ namespace sdds {
 
 			if (!found) {
 				temp = new T[m_cnt + 1];
-				for (int i = 0; i < m_cnt; i++) {
+				for (size_t i = 0; i < m_cnt; i++) {
 					temp[i] = m_array[i];
 				}
 				temp[m_cnt] = item;

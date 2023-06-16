@@ -22,6 +22,7 @@ namespace sdds {
 	template<typename T>
 	inline void Movie::fixSpelling(T& spellChecker)
 	{
+		spellChecker(Movie::m_title);
 		spellChecker(Movie::m_desc);
 	}
 }

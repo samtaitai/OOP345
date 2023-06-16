@@ -2,7 +2,7 @@
 * Name: Soyon Lee
 * Email: slee550@myseneca.ca
 * ID: 179142211
-* Date: 12 June 2023
+* Date: 16 June 2023
 * I have done all the coding by myselfand only copied the code that
 * my professor provided to complete my workshopsand assignments.
 */
@@ -33,11 +33,12 @@ namespace sdds {
 		double& price();//
 		std::ostream& display(std::ostream& os) const;
 		std::string& trim(std::string& str);
-		//Book& setPrice(double newPrice);//price
 		template <typename T>
 		void fixSpelling(T& spellChecker);
+		//friend helper usually under public(doesn't really matter)
+		friend std::ostream& operator<<(std::ostream& os, const Book& Ro); 
 	};
-	std::ostream& operator<<(std::ostream& os, const Book& Ro);
+	
 	template<typename T>
 	inline void Book::fixSpelling(T& spellChecker)
 	{

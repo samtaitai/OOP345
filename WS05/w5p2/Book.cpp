@@ -2,7 +2,7 @@
 * Name: Soyon Lee
 * Email: slee550@myseneca.ca
 * ID: 179142211
-* Date: 12 June 2023
+* Date: 16 June 2023
 * I have done all the coding by myselfand only copied the code that
 * my professor provided to complete my workshopsand assignments.
 */
@@ -90,11 +90,6 @@ namespace sdds {
 		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
 	}
-	/*Book& Book::setPrice(double newPrice)
-	{
-		m_price = newPrice;
-		return *this;
-	}*/
 	std::ostream& operator<<(std::ostream& os, const Book& Ro)
 	{
 		return Ro.display(os);

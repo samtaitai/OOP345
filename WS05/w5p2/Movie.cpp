@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 16 June 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
 #include "Movie.h"
 
 using namespace std;
@@ -11,12 +19,13 @@ namespace sdds {
     {
 		size_t idxC = strMovie.find(',');
 		size_t idxC1 = strMovie.find(',', idxC + 1);
-		size_t idxC2 = strMovie.find(',', idxC1 + 1);
+		//size_t idxC2 = strMovie.find('\n', idxC1 + 1); don't need?
 
 		m_title = strMovie.substr(0, idxC); 
 		m_title = this->trim(m_title); 
 		m_year = stoi(strMovie.substr(idxC + 1, (idxC1 - idxC - 1)));
-		m_desc = strMovie.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
+		//m_desc = strMovie.substr(idxC1 + 1, (idxC2 - idxC1 - 1));
+		m_desc = strMovie.substr(idxC1 + 1);
 		m_desc = this->trim(m_desc);
     }
     std::ostream& Movie::display(std::ostream& os) const

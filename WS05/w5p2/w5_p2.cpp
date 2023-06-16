@@ -1,3 +1,12 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 16 June 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
+
 // Workshop 5 - Functions and Error Handling
 // 2020/02 - Cornel
 // 2021/01/19 - Chris
@@ -116,16 +125,14 @@ int main(int argc, char** argv)
 	//            and save the new price in the book object
 	//       - if the book was published in UK between 1990 and 1999 (inclussive),
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
-	auto fixUsd = [&](Book& book) {
-		if (book.country() == "US")
-			//book.setPrice(book.price() * usdToCadRate);
-			book.price() = book.price() * usdToCadRate;
-	};
-	auto fixGbp = [&](Book& book) {
+	auto correctPrice = [=](Book& book) {
 		if (book.country() == "UK" and book.year() >= 1990 and book.year() <= 1999)
-			//book.setPrice(book.price() * gbpToCadRate);
 			book.price() = book.price() * gbpToCadRate;
+		else if (book.country() == "US") {
+			book.price() = book.price() * usdToCadRate;
+		}
 	};
+
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
@@ -136,8 +143,7 @@ int main(int argc, char** argv)
 	// TODO (from part #1): iterate over the library and update the price of each book
 	//         using the lambda defined above.
 	for (auto i = 0u; i < cnt; ++i) {
-		fixUsd(library[i]);
-		fixGbp(library[i]);
+		correctPrice(library[i]);
 	}
 
 	std::cout << "-----------------------------------------\n";

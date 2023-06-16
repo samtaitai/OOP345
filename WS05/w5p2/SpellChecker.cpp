@@ -1,3 +1,12 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 16 June 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
+#include <iostream>
 #include <fstream>
 #include "SpellChecker.h"
 
@@ -25,6 +34,8 @@ namespace sdds {
 					m_badWords[cnt] = strWords.substr(0, idx1);
 					m_goodWords[cnt] = strWords.substr(idx2 + 1);
 					cnt++;
+
+					//just use cin.get? 
 				}
 			} while (file);
 		}

@@ -1,0 +1,65 @@
+>>the difference between the implementations/utilizations of a functor and a lambda expression. When is appropriate to use each one?
+
+Functor can hold state. Lambda cannot cause it's merely a function. Hence, in this workshop, functor(SpellChecker) has a counter which can record how many the functor is called. 
+
+that's my functor:
+namespace sdds {
+	class SpellChecker
+	{
+		std::string m_badWords[6];
+		std::string m_goodWords[6];
+		static int count[6];
+
+	public:
+		SpellChecker(const char* filename);
+		void operator()(std::string& text);
+		void showStatistics(std::ostream& out);
+	};
+}
+
+that's my lambda:
+auto correctPrice = [=](Book& book) {
+		if (book.country() == "UK" and book.year() >= 1990 and book.year() <= 1999)
+			book.price() = book.price() * gbpToCadRate;
+		else if (book.country() == "US") {
+			book.price() = book.price() * usdToCadRate;
+		}
+	};
+
+>>the constructor for SpellChecker generates an exception in certain conditions. How would you change your code to achieve the same result, but without exceptions (both on the constructor and on the client side)? Compare the two solutions.
+
+When the exception exists:
+if (file) {
+			do {
+				std::getline(file, strWords);
+				if (strWords != "") {
+					idx1 = strWords.find_first_of(WHITESPACE);
+					idx2 = strWords.find_last_of(WHITESPACE);
+					m_badWords[cnt] = strWords.substr(0, idx1);
+					m_goodWords[cnt] = strWords.substr(idx2 + 1);
+					cnt++;
+
+					//just use cin.get? 
+				}
+			} while (file);
+		}
+		else {
+			throw "Bad file name!";
+		}
+
+When the exception not exists, instead of throw const char* type error, the else block could have cout that prints the same message. 
+
+>>the classes Movie and Book contain almost identical logic in loading data from the file. How would you redesign the classes in order not to duplicate that logic?
+
+I would create a base class something called 'Media' and let it have common member functions that both Book and Movie have. 
+
+>>the classes Movie and Book are instantiated from the main() function using a custom constructor, but they also contain a default constructor. Is the default constructor necessary? Could you remove it? Justify your answer.
+
+I still need the default constructor for something like this:
+sdds::Collection<sdds::Book> library("Bestsellers"); 
+Collection<Movie> theCollection("Action Movies");
+
+cause these collection should be populated with empty Book or Movie objects. 
+
+
+

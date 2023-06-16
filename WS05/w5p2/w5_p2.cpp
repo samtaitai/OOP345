@@ -118,11 +118,13 @@ int main(int argc, char** argv)
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
 	auto fixUsd = [&](Book& book) {
 		if (book.country() == "US")
-			book.setPrice(book.price() * usdToCadRate);
+			//book.setPrice(book.price() * usdToCadRate);
+			book.price() = book.price() * usdToCadRate;
 	};
 	auto fixGbp = [&](Book& book) {
 		if (book.country() == "UK" and book.year() >= 1990 and book.year() <= 1999)
-			book.setPrice(book.price() * gbpToCadRate);
+			//book.setPrice(book.price() * gbpToCadRate);
+			book.price() = book.price() * gbpToCadRate;
 	};
 
 	std::cout << "-----------------------------------------\n";

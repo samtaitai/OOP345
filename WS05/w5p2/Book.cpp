@@ -90,11 +90,11 @@ namespace sdds {
 		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
 	}
-	Book& Book::setPrice(double newPrice)
+	/*Book& Book::setPrice(double newPrice)
 	{
 		m_price = newPrice;
 		return *this;
-	}
+	}*/
 	std::ostream& operator<<(std::ostream& os, const Book& Ro)
 	{
 		return Ro.display(os);

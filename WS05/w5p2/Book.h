@@ -30,10 +30,10 @@ namespace sdds {
 		const std::string& title() const;
 		const std::string& country() const;
 		const size_t& year() const;
-		double& price();
+		double& price();//
 		std::ostream& display(std::ostream& os) const;
 		std::string& trim(std::string& str);
-		Book& setPrice(double newPrice);
+		//Book& setPrice(double newPrice);//price
 		template <typename T>
 		void fixSpelling(T& spellChecker);
 	};

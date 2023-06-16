@@ -127,7 +127,7 @@ namespace sdds {
 		}
 
 		if (found) {
-			*result = m_array[idx];
+			result = &m_array[idx];
 		}
 
 		return result;

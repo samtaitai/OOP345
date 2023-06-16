@@ -41,7 +41,6 @@ namespace sdds {
 	template<typename T>
 	inline void Book::fixSpelling(T& spellChecker)
 	{
-		//spellChecker(Book::m_title);
 		spellChecker(Book::m_desc);
 	}
 }

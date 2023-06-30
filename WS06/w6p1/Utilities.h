@@ -6,7 +6,8 @@ namespace sdds {
 	class Utilities
 	{
 	public:
-		Vehicle* createInstance(std::istream& in);
+		static Vehicle* createInstance(std::istream& in);
+		static std::string trim(std::string& str);
 	};
 }
 

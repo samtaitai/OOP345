@@ -7,12 +7,13 @@
 namespace sdds {
 	class Car: public Vehicle
 	{
-		char m_tag{};
+		std::string m_tag{};
 		std::string m_maker{};
-		char m_condition{};
+		std::string m_condition{};
 		double m_speed{};
 
 	public:
+		Car() = default;
 		Car(std::istream& is);
 		std::string condition() const;	
 		double topSpeed() const;

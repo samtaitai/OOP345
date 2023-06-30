@@ -1,45 +1,41 @@
-#include <cstring>
+#include <sstream>
 #include <typeinfo>
 #include "Car.h"
+#include "Utilities.h"
 
 using namespace std;
 
 namespace sdds {
 	Car::Car(std::istream& is)
 	{
-		int* iptr{ nullptr };
-		char temp[256];
-		strcpy(temp, "/0");
+		std::string temp{};
 
-		m_tag = is.get();
-		if (m_tag != ('c' || 'C')) throw "Invalid tag";
-		else {
-			is.ignore();
-			//extract std::string from istream?
-			is.get(temp, 255, ',');
-			m_maker = std::string(temp);
-			is.ignore();
-			m_condition = is.get();
-			if (m_condition != 'n' && m_condition != 'u' && m_condition != 'b') throw "Invalid condition";
-			else {
-				is.ignore();
-				is >> m_speed;
-				//iptr = dynamic_cast<int*>(&m_speed);
-				//if (!iptr) throw "Invalid speed";
+		std::getline(is, m_tag, ','); //enable to use getline again
+
+		if (m_tag.compare("c") == 0 || m_tag.compare("C") == 0) {
+			std::getline(is, m_maker, ',');
+			m_maker = Utilities::trim(m_maker);
+			std::getline(is, m_condition, ',');
+			m_condition = Utilities::trim(m_condition);
+			if (m_condition.compare("n") == 0 ||
+				m_condition.compare("u") == 0 ||
+				m_condition.compare("b") == 0) {
+				std::getline(is, temp, '\n');
+				m_speed = std::stod(temp);
 				if (sizeof(m_speed) != 8) throw "Invalid speed";
 			}
+			else throw "Invalid condition";
 		}
-
-
+		else throw "Invalid tag";
 	}
 
 	std::string Car::condition() const
 	{
 		std::string result{};
 
-		if (m_condition == 'n') result = "new";
-		else if (m_condition == 'u') result = "used";
-		else if (m_condition == 'b') result = "broken";
+		if (m_condition.compare("n") == 0) result = "new";
+		else if (m_condition.compare("u") == 0) result = "used";
+		else if (m_condition.compare("b") == 0) result = "broken";
 		return result;
 	}
 

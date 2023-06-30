@@ -16,9 +16,9 @@ namespace sdds {
 		cout << "--------------------------------" << endl;
 		cout << "| Cars in the autoshop!        |" << endl;
 		cout << "--------------------------------" << endl;
-		for (iter == m_vehicles.begin(); iter != m_vehicles.end(); iter++) {
+		/*for (iter = m_vehicles.begin(); iter != m_vehicles.end(); iter++) {
 			cout << *iter << endl;
-		}
+		}*/
 		cout << "--------------------------------" << endl;
 	}
 }

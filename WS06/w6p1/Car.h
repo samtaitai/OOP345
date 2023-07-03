@@ -18,8 +18,10 @@ namespace sdds {
 		std::string condition() const;	
 		double topSpeed() const;
 		void display(std::ostream& out) const;
+		~Car() = default;
 
 	};
+	//std::ostream& operator<<(std::ostream& out, Car& Ro);
 }
 
 

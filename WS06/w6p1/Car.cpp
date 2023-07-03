@@ -46,20 +46,22 @@ namespace sdds {
 
 	void Car::display(std::ostream& out) const
 	{
-		out << "--------------------------------" << endl;
-		out << "| Cars in the autoshop!        |" << endl;
-		out << "--------------------------------" << endl;
-		out << "|";
+		out << "| ";
 		out.width(10);
 		out << m_maker;
-		out << "|";
+		out << " | ";
 		out.width(6);
-		out << m_condition;
-		out << "|";
+		if (m_condition.compare("n") == 0) out << "new";
+		else if (m_condition.compare("u") == 0) out << "used";
+		else if (m_condition.compare("b") == 0) out << "broken";
+		out << " | ";
 		out.width(6);
+		out.setf(ios::fixed);
+		out.precision(2);
 		out << m_speed;
-		out << "|" << endl;
+		out << " |" << endl;
 	}
+	
 }
 
 

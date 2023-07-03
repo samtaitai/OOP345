@@ -11,14 +11,13 @@ namespace sdds {
 	}
 	void Autoshop::display(std::ostream& out) const
 	{
-		std::vector<Vehicle*>::iterator iter;
-
 		cout << "--------------------------------" << endl;
 		cout << "| Cars in the autoshop!        |" << endl;
 		cout << "--------------------------------" << endl;
-		/*for (iter = m_vehicles.begin(); iter != m_vehicles.end(); iter++) {
-			cout << *iter << endl;
-		}*/
+
+		for (auto iter = m_vehicles.begin(); iter != m_vehicles.end(); iter++) {
+			(*iter)->display(out);
+		}
 		cout << "--------------------------------" << endl;
 	}
 }

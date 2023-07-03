@@ -7,19 +7,24 @@
 using namespace std;
 
 namespace sdds {
+	//this function should dynamically create an instance of type Car \
+	passing the stream to the constructor, and return it to the client.
+	
 	Vehicle* Utilities::createInstance(std::istream& in) //single Car
 	{
-		Car result{};
+		Car* car{};
 		std::string strCars{};
 
 		std::getline(in, strCars);
 		if (strCars[0] == 'c' || strCars[0] == 'C') {
 
 			std::stringstream row(strCars);
-			try { result = Car(row); }
+			try { 
+				car = new Car(row); //'dynamically'
+			}
 			catch (const char* err) { cout << err; }
 		}
-		return &result;
+		return car; 
 	}
 	std::string Utilities::trim(std::string& str)
 	{

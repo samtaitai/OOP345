@@ -17,7 +17,7 @@ void loadData(const char* filename, sdds::Autoshop& as)
 	}
 	while (file)
 	{
-		sdds::Vehicle* aVehicle = sdds::Utilities::createInstance(file);
+		sdds::Vehicle* aVehicle = sdds::createInstance(file);
 		if (aVehicle)
 			as += aVehicle;
 	}

@@ -14,9 +14,9 @@ namespace sdds {
 
 		if (m_tag.compare("c") == 0 || m_tag.compare("C") == 0) {
 			std::getline(is, m_maker, ',');
-			m_maker = Utilities::trim(m_maker);
+			m_maker = trim(m_maker);
 			std::getline(is, m_condition, ',');
-			m_condition = Utilities::trim(m_condition);
+			m_condition = trim(m_condition);
 			if (m_condition.compare("n") == 0 ||
 				m_condition.compare("u") == 0 ||
 				m_condition.compare("b") == 0) {

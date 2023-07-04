@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Autoshop.h"
+#include "Car.h"
 
 using namespace std;
 
@@ -19,6 +20,10 @@ namespace sdds {
 			(*iter)->display(out);
 		}
 		cout << "--------------------------------" << endl;
+	}
+	Autoshop::~Autoshop()
+	{
+		for (auto iter = m_vehicles.begin(); iter != m_vehicles.end(); iter++) delete *iter;
 	}
 }
 

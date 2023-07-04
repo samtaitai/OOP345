@@ -51,9 +51,11 @@ namespace sdds {
 		out << m_maker;
 		out << " | ";
 		out.width(6);
+		out.setf(ios::left);
 		if (m_condition.compare("n") == 0) out << "new";
 		else if (m_condition.compare("u") == 0) out << "used";
 		else if (m_condition.compare("b") == 0) out << "broken";
+		out.unsetf(ios::left);
 		out << " | ";
 		out.width(6);
 		out.setf(ios::fixed);

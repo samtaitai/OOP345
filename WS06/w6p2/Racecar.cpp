@@ -13,7 +13,7 @@ namespace sdds {
 	void Racecar::display(std::ostream& out) const
 	{
 		Car::display(out);
-		out << '*' << endl;
+		out << '*';
 	}
 	double Racecar::topSpeed() const
 	{

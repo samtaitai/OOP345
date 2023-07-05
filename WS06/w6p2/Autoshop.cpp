@@ -18,10 +18,9 @@ namespace sdds {
 		cout << "--------------------------------" << endl;
 
 		for (auto iter = m_vehicles.begin(); iter != m_vehicles.end(); iter++) {
-			const Racecar* r = dynamic_cast<const Racecar*>(*iter);
 			
 			(*iter)->display(out);
-			if (!r) out << endl;
+			out << endl;
 			
 		}
 		cout << "--------------------------------" << endl;

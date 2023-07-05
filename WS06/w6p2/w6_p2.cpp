@@ -49,8 +49,8 @@ int main(int argc, char** argv)
 	loadData(argv[1], as);
 	as.display(std::cout);
 	std::cout << "\n";
-	/*loadData(argv[2], as); //error handling failed
-	as.display(std::cout);*/
+	loadData(argv[2], as); //error handling failed
+	as.display(std::cout);
 
 	std::cout << std::endl;
 	std::list<const sdds::Vehicle*> vehicles;
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 		for (auto it = vehicles.begin(); it != vehicles.end(); ++it)
 		{
 			(*it)->display(std::cout);
-			std::cout << std::endl;
+			std::cout << std::endl; //should be 
 		}
 		std::cout << "--------------------------------\n";
 	}
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Vehicle*`
 		//         and returns true if the vehicle is broken and needs repairs.
 		auto brokenVehicles = [](const sdds::Vehicle* v) -> bool {
-			if (v->condition().compare("b") == 0) return true;
+			if (v->condition().compare("broken") == 0) return true;
 			else return false;
 		};
 		as.select(brokenVehicles, vehicles);
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 		for (const auto vehicle : vehicles)
 		{
 			vehicle->display(std::cout);
-			std::cout << std::endl;
+			std::cout << std::endl; //should be 
 		}
 		std::cout << "--------------------------------\n";
 	}

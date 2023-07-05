@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <cstring>
 #include "Utilities.h"
 #include "Car.h"
 #include "Racecar.h"
@@ -14,7 +15,9 @@ namespace sdds {
 		std::string strCars{};
 
 		std::getline(in, strCars);
+		strCars = trim(strCars);
 		std::stringstream row(strCars);
+
 		if (strCars[0] == 'c' || strCars[0] == 'C') {
 
 			try {
@@ -29,7 +32,10 @@ namespace sdds {
 			}
 			catch (const char* err) { cout << err; }
 		}
-		else throw "Unrecognized record type: [t]";
+		else if (strCars[0] == '\0') {} //cause while(file) runs extra +1 
+		else {
+			throw "Unrecognized record type: [t]"; //how? 
+		}
 
 		return result;
 	}

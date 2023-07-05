@@ -11,36 +11,48 @@ namespace sdds {
 		std::string temp{};
 
 		std::getline(is, m_tag, ','); //enable to use getline again
-
+		m_tag = trim(m_tag);
 		if (m_tag.compare("c") == 0 || m_tag.compare("C") == 0) {
 			std::getline(is, m_maker, ',');
 			m_maker = trim(m_maker);
 			std::getline(is, m_condition, ',');
 			m_condition = trim(m_condition);
+			if (m_condition.length() == 0) m_condition = "n";
 			if (m_condition.compare("n") == 0 ||
 				m_condition.compare("u") == 0 ||
 				m_condition.compare("b") == 0) {
 				std::getline(is, temp, '\n');
-				m_speed = std::stod(temp);
-				//if (typeid(m_speed).name() != "d") throw "Invalid record!";
+				try { 
+					m_speed = std::stod(temp);
+					is.ignore();
+				}
+				catch (invalid_argument err) {
+					throw "Invalid record!\n";
+				}
 			}
-			else throw "Invalid record!";
+			else throw "Invalid record!\n";
 		}
 		else if (m_tag.compare("r") == 0 || m_tag.compare("R") == 0) {
 			std::getline(is, m_maker, ',');
 			m_maker = trim(m_maker);
 			std::getline(is, m_condition, ',');
 			m_condition = trim(m_condition);
+			if (m_condition.length() == 0) m_condition = "n";
 			if (m_condition.compare("n") == 0 ||
 				m_condition.compare("u") == 0 ||
 				m_condition.compare("b") == 0) {
 				std::getline(is, temp, ',');
-				m_speed = std::stod(temp);
-				//if (typeid(m_speed).name() != "d") throw "Invalid record!";
+				try {
+					m_speed = std::stod(temp);
+					is.ignore();
+				}
+				catch (invalid_argument err) {
+					throw "Invalid record!\n";
+				}
 			}
-			else throw "Invalid record!";
+			else throw "Invalid record!\n";
 		}
-		else throw "Invalid record!";
+		else throw "Invalid record!\n";
 	}
 
 	std::string Car::condition() const

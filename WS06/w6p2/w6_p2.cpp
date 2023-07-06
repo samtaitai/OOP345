@@ -30,7 +30,7 @@ void loadData(const char* filename, sdds::Autoshop& as)
 			if (aVehicle)
 				as += aVehicle;
 		}
-		catch (const char* err) {
+		catch (std::string err) {
 			std::cout << err << std::endl;
 		};
 	}

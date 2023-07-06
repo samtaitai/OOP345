@@ -23,20 +23,22 @@ namespace sdds {
 			try {
 				result = new Car(row); //'dynamically'
 			}
-			catch (const char* err) { cout << err; }
+			catch (std::string err) { cout << err; }
 		}
 		else if (strCars[0] == 'r' || strCars[0] == 'R') {
 
 			try {
 				result = new Racecar(row);
 			}
-			catch (const char* err) { cout << err; }
+			catch (std::string err) { cout << err; }
 		}
 		else if (strCars[0] == '\0') {} //cause while(file) runs extra +1 
 		else {
-			throw "Unrecognized record type: [t]"; //how? 
+			const char badTag[] = { strCars[0], '\0' };
+			std::string badTagStr = std::string(badTag);
+			std::string warning = "Unrecognized record type: [" + badTagStr + ']';
+			throw warning;
 		}
-
 		return result;
 	}
 	std::string trim(std::string& str)

@@ -27,10 +27,10 @@ namespace sdds {
 					is.ignore();
 				}
 				catch (invalid_argument err) {
-					throw "Invalid record!\n";
+					throw std::string("Invalid record!\n");
 				}
 			}
-			else throw "Invalid record!\n";
+			else throw std::string("Invalid record!\n");
 		}
 		else if (m_tag.compare("r") == 0 || m_tag.compare("R") == 0) {
 			std::getline(is, m_maker, ',');
@@ -47,12 +47,12 @@ namespace sdds {
 					is.ignore();
 				}
 				catch (invalid_argument err) {
-					throw "Invalid record!\n";
+					throw std::string("Invalid record!\n");
 				}
 			}
-			else throw "Invalid record!\n";
+			else throw std::string("Invalid record!\n");
 		}
-		else throw "Invalid record!\n";
+		else throw std::string("Invalid record!\n");
 	}
 
 	std::string Car::condition() const
@@ -81,7 +81,7 @@ namespace sdds {
 		if (m_condition.compare("n") == 0 || m_condition == "") out << "new";
 		else if (m_condition.compare("u") == 0) out << "used";
 		else if (m_condition.compare("b") == 0) out << "broken";
-		else throw "This record is invalid";
+		else throw std::string("This record is invalid");
 		out.unsetf(ios::left);
 		out << " | ";
 		out.width(6);
@@ -90,7 +90,7 @@ namespace sdds {
 			out.precision(2);
 			out << m_speed;
 		}
-		else throw "This record is invalid";
+		else throw std::string("This record is invalid");
 		out << " |";
 	}
 	

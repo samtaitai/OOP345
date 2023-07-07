@@ -44,7 +44,16 @@ if (m_tag.compare("c") == 0 || m_tag.compare("C") == 0) {
 			else throw std::string("Invalid record!\n");
 		}
 
+Otherwise, I could introduce a boolean variable as a flag which would be called 'found', and whenever some condition doesn't match, I'll set it as true in order to track the state.  
+
 >>In this workshop you had to use std::list<sdds::Vehicle*> and std::vector<sdds::Vehicle*> to store a collection of vehicles as pointers. Could you have used std::list<sdds::Vehicle> and std::vector<sdds::Vehicle> instead? Justify your answer!
 
-...
+If those containers hold Vehicle, we can't benefit from polymorphism. The container that belongs to Autoshop class, would have had Car object or Racecar object. If those elements are not polymorphic object(Vehicle*), below is not possible.
 
+for (auto it = vehicles.begin(); it != vehicles.end(); ++it)
+		{
+			(*it)->display(std::cout);
+			std::cout << std::endl; //should be 
+		}
+
+Otherwise, we have to check type for each element in order to call the appropriate overloaded version of display. 

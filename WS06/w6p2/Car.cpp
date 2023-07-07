@@ -34,7 +34,7 @@ namespace sdds {
 					m_speed = std::stod(temp);
 					is.ignore();
 				}
-				catch (invalid_argument err) {
+				catch (invalid_argument& err) {
 					throw std::string("Invalid record!\n");
 				}
 			}
@@ -54,7 +54,7 @@ namespace sdds {
 					m_speed = std::stod(temp);
 					is.ignore();
 				}
-				catch (invalid_argument err) {
+				catch (invalid_argument& err) {
 					throw std::string("Invalid record!\n");
 				}
 			}

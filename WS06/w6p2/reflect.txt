@@ -1,0 +1,50 @@
+>>Why do you need to deallocate the dynamically allocated memory in your vector?
+
+Because we take advantage of polymorphism by creating a vector of Vehicle* and create Car or Racecar dynamically in the createInstance function. And the vector belongs to Autoshop class, its destructor should deal with deallocation.
+
+if (strCars[0] == 'c' || strCars[0] == 'C') {
+
+			try {
+				result = new Car(row); //'dynamically'
+			}
+			catch (std::string err) { cout << err; }
+		}
+		else if (strCars[0] == 'r' || strCars[0] == 'R') {
+
+			try {
+				result = new Racecar(row);
+			}
+			catch (std::string err) { cout << err; }
+		}
+
+>>When building an object from the input file, different things can go wrong: the record represents an unknown type of vehicle, or record contains invalid data. How can the function loadData() detect what went wrong? Can you think at another solution than the one you have implemented?
+
+From loadData(), createInstance() will be invoked, which will invoke either the constructor of Car or Racecar.
+In the constructor, whenever the input data doesn't pass a validation, I throw std::string type or other appropriate type error. 
+Since in the client code, createInstance() is wrapped by try ... catch block, in case of any error being thrown, it will be caught, instead of crashing the app.
+
+if (m_tag.compare("c") == 0 || m_tag.compare("C") == 0) {
+			std::getline(is, m_maker, ',');
+			m_maker = trim(m_maker);
+			std::getline(is, m_condition, ',');
+			m_condition = trim(m_condition);
+			if (m_condition.length() == 0) m_condition = "n";
+			if (m_condition.compare("n") == 0 ||
+				m_condition.compare("u") == 0 ||
+				m_condition.compare("b") == 0) {
+				std::getline(is, temp, '\n');
+				try { 
+					m_speed = std::stod(temp);
+					is.ignore();
+				}
+				catch (invalid_argument err) {
+					throw std::string("Invalid record!\n");
+				}
+			}
+			else throw std::string("Invalid record!\n");
+		}
+
+>>In this workshop you had to use std::list<sdds::Vehicle*> and std::vector<sdds::Vehicle*> to store a collection of vehicles as pointers. Could you have used std::list<sdds::Vehicle> and std::vector<sdds::Vehicle> instead? Justify your answer!
+
+...
+

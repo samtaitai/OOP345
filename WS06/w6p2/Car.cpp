@@ -101,6 +101,11 @@ namespace sdds {
 		else throw std::string("This record is invalid");
 		out << " |";
 	}
+
+	void Car::setSpeed(double boost)
+	{
+		m_speed = m_speed * (1 + boost);
+	}
 	
 }
 

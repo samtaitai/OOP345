@@ -17,6 +17,7 @@ namespace sdds {
 		std::string temp{};
 		std::getline(in, temp, '\n');
 		m_booster = std::stod(temp);
+		Car::setSpeed(m_booster);
 	}
 	void Racecar::display(std::ostream& out) const
 	{
@@ -25,6 +26,6 @@ namespace sdds {
 	}
 	double Racecar::topSpeed() const
 	{
-		return Car::topSpeed() * (1 + m_booster);
+		return Car::topSpeed();
 	}
 }

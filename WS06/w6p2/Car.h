@@ -23,11 +23,11 @@ namespace sdds {
 	public:
 		Car() = default;
 		Car(std::istream& is);
-		Car(std::istream& is, std::string temp);
 		virtual std::string condition() const;	
 		virtual double topSpeed() const;
 		virtual void display(std::ostream& out) const;
 		virtual ~Car() = default;
+		virtual void setSpeed(double boost);
 
 	};
 }

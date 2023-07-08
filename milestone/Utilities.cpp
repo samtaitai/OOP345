@@ -1,3 +1,10 @@
+// Name: Soyon Lee
+// Seneca Student ID: 179142211
+// Seneca email: slee550@myseneca.ca
+// Date of completion: 8 July 2023
+//
+// Citation: 
+//   In extractToken(), I was reminded of the idea of using find and substr by chatGPT. 
 #include <sstream>
 #include <iostream>
 #include "Utilities.h"
@@ -19,62 +26,30 @@ namespace sdds {
 	std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more)
 	{
 		size_t start = next_pos;
-		size_t end = str.find(m_delimiter, next_pos);
+		size_t end = str.find(m_delimiter, next_pos); //search range includes str[next_pos]
 		std::string result{};
 
-		if (end == start) {
+		if (end == start) { //if next one is also delimiter or {'a', "a"} case
 			more = false;
 			throw "   ERROR: No token.\n";
 		}
-		else if (end == std::string::npos) {
+		else if (end == std::string::npos) { //no matches found <- ('b', "a") case
 			end = str.length();
 			start = end;
 
-			if (end == start) {
+			if (end == start) { //rest case's last word
 				more = false;
-				//throw "   ERROR: No token.\n";
 				result = str.substr(next_pos);
 				if (getFieldWidth() < result.length()) setFieldWidth(result.length());
 				return trim(result);
 			}
-
 		}
 		else {
-
-			
-			next_pos = end + 1;
-			
+			next_pos = end + 1; //move one step next
 			result = str.substr(start, end - start);
 			if (getFieldWidth() < result.length()) setFieldWidth(result.length());
 			return trim(result);
 		}
-		
-
-		
-
-		//std::string result{};
-		//std::string temp = str.substr(next_pos);
-		//std::stringstream row(temp);
-		//std::string newStr{};
-
-		////"apple,orange,banana,kiwi,strawberry,yellow watermellon"
-
-		//if (row.peek() == m_delimiter) { //Hello ll situation
-		//	more = false;
-		//	throw "   ERROR: No token.\n";
-		//}
-		//else {
-		//	std::getline(row, result, m_delimiter);
-		//	if (result.length() > 0) {
-		//		result = trim(result);
-		//		next_pos = next_pos + result.length();
-		//		if (getFieldWidth() < result.length()) setFieldWidth(result.length());
-		//		if (!temp[next_pos]) more = false;
-		//		return result;
-		//	}
-		//	else more = false;
-		//	
-		//}
 	}
 
 	void Utilities::setDelimiter(char newDelimiter)

@@ -29,46 +29,46 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	////**************//
-	//vector<Station> theStations;
-	//try
-	//{
-	//	Utilities::setDelimiter(',');
-	//	loadStations(argv[1], theStations);
-	//	Utilities::setDelimiter('|');
-	//	loadStations(argv[2], theStations);
-	//}
-	//catch (const string& err)
-	//{
-	//	cerr << err << '\n';
-	//	exit(2);
-	//}
+	//**************//
+	vector<Station> theStations;
+	try
+	{
+		Utilities::setDelimiter(',');
+		loadStations(argv[1], theStations);
+		Utilities::setDelimiter('|');
+		loadStations(argv[2], theStations);
+	}
+	catch (const string& err)
+	{
+		cerr << err << '\n';
+		exit(2);
+	}
 
-	//cout << "========================================" << endl;
-	//cout << "=         Stations (summary)           =" << endl;
-	//cout << "========================================" << endl;
-	//for (Station& theItem : theStations)
-	//	theItem.display(cout, false);
-	//cout << endl << endl;
+	cout << "========================================" << endl;
+	cout << "=         Stations (summary)           =" << endl;
+	cout << "========================================" << endl;
+	for (Station& theItem : theStations)
+		theItem.display(cout, false);
+	cout << endl << endl;
 
-	//cout << "========================================" << endl;
-	//cout << "=          Stations (full)             =" << endl;
-	//cout << "========================================" << endl;
-	//for (Station& theItem : theStations)
-	//	theItem.display(cout, true);
-	//cout << endl << endl;
+	cout << "========================================" << endl;
+	cout << "=          Stations (full)             =" << endl;
+	cout << "========================================" << endl;
+	for (Station& theItem : theStations)
+		theItem.display(cout, true);
+	cout << endl << endl;
 
-	////Select an object and verify all the functionality it working
-	//cout << "========================================" << endl;
-	//cout << "=          Manual Validation           =" << endl;
-	//cout << "========================================" << endl;
-	//cout << "getItemName(): " << theStations[0].getItemName() << endl;
-	//cout << "getNextSerialNumber(): " << theStations[0].getNextSerialNumber() << endl;
-	//cout << "getNextSerialNumber(): " << theStations[0].getNextSerialNumber() << endl;
-	//cout << "getQuantity(): " << theStations[0].getQuantity() << endl;
-	//theStations[0].updateQuantity();
-	//cout << "getQuantity(): " << theStations[0].getQuantity() << endl;
-	//cout << endl;
+	//Select an object and verify all the functionality it working
+	cout << "========================================" << endl;
+	cout << "=          Manual Validation           =" << endl;
+	cout << "========================================" << endl;
+	cout << "getItemName(): " << theStations[0].getItemName() << endl;
+	cout << "getNextSerialNumber(): " << theStations[0].getNextSerialNumber() << endl;
+	cout << "getNextSerialNumber(): " << theStations[0].getNextSerialNumber() << endl;
+	cout << "getQuantity(): " << theStations[0].getQuantity() << endl;
+	theStations[0].updateQuantity();
+	cout << "getQuantity(): " << theStations[0].getQuantity() << endl;
+	cout << endl;
 
 
 	cout << "========================================" << endl;

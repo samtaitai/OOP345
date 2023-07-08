@@ -23,7 +23,7 @@ namespace sdds {
 	public:
 		Station(const std::string& row);
 		const std::string& getItemName() const;
-		size_t getNextSerialNumber() const;
+		size_t getNextSerialNumber();
 		size_t getQuantity() const;
 		void updateQuantity();
 		void display(std::ostream& os, bool full) const;

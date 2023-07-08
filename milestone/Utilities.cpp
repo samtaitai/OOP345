@@ -41,15 +41,16 @@ namespace sdds {
 				more = false;
 				result = str.substr(next_pos);
 				if (getFieldWidth() < result.length()) setFieldWidth(result.length());
-				return trim(result);
+				result = trim(result);
 			}
 		}
 		else {
 			next_pos = end + 1; //move one step next
 			result = str.substr(start, end - start);
 			if (getFieldWidth() < result.length()) setFieldWidth(result.length());
-			return trim(result);
+			result = trim(result);
 		}
+		return result;
 	}
 
 	void Utilities::setDelimiter(char newDelimiter)

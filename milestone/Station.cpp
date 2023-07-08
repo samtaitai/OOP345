@@ -22,7 +22,7 @@ namespace sdds {
 		size_t pos = 0u;
 		try
 		{
-			Station::id_generator += 1;
+			Station::id_generator++;
 			m_id = Station::id_generator;
 			m_name = util.extractToken(row, pos, more);
 			m_nextSerial = std::stoi(util.extractToken(row, pos, more));
@@ -88,8 +88,8 @@ namespace sdds {
 			os << " | " << endl;
 		}
 	}
-	size_t Station::getNextSerialNumber() const
+	size_t Station::getNextSerialNumber()
 	{
-		return m_nextSerial;
+		return m_nextSerial++;
 	}
 }

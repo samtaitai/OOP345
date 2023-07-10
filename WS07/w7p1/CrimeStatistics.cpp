@@ -20,6 +20,8 @@ namespace sdds {
 		while(file) {
 			
 			strcpy(tempc, "\0");
+			row.erase(row.begin(), row.end()); //avoid duplicating the last row
+
 			std::getline(file, row, '\n');
 			if (row.length() > 0) {
 				Crime c;

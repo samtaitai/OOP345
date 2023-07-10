@@ -28,25 +28,36 @@ namespace sdds {
 				rowStream.get(tempc, 25);
 				c.province = std::string(tempc);
 				c.province = trim(c.province);
+				rowStream.ignore();
+
 				rowStream.get(tempc, 25);
 				c.district = std::string(tempc);
 				c.district = trim(c.district);
+				rowStream.ignore();
+
 				rowStream.get(tempc, 25);
 				c.crime = std::string(tempc);
 				c.crime = trim(c.crime);
+				rowStream.ignore();
+
 				strcpy(tempc, "\0");
+
 				rowStream.get(tempc, 5);
 				temp = std::string(tempc);
 				c.year = std::stoi(temp);
+				rowStream.ignore();
+
 				rowStream.get(tempc, 5);
 				temp = std::string(tempc);
 				c.numOfCases = std::stoi(temp);
+				rowStream.ignore();
+
 				rowStream.getline(tempc, 5);
 				temp = std::string(tempc);
 				c.numOfresolved = std::stoi(temp);
+
 				statistics.push_back(c);
 			}
-			//file.ignore();
 		}
 	}
 	void CrimeStatistics::display(std::ostream& out) const
@@ -54,8 +65,7 @@ namespace sdds {
 		for_each(statistics.begin(), statistics.end(), [&](const Crime& c) {
 			out << "| ";
 		out.width(21);
-		//out.setf(ios::left);
-		out << c.province;
+		out << std::left << c.province;
 		out << " | ";
 		out.width(15);
 		out << c.district;
@@ -63,9 +73,8 @@ namespace sdds {
 		out.width(20);
 		out << c.crime;
 		out << " | ";
-		//out.unsetf(ios::left);
 		out.width(6);
-		out << c.year;
+		out << std::right << c.year;
 		out << " | ";
 		out.width(4);
 		out << c.numOfCases;

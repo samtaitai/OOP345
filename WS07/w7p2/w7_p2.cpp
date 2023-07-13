@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 		auto col = statistics.getListForProvince("Ontario");
 		for (auto& crime : col)
 		{
-			crime.numOfresolved -= 3;
+			crime.m_resolved -= 3;
 			std::cout << crime << "\n";
 		}
 		printbar();

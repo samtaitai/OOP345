@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 13 July 2023
+* Citation:
+* I've got an idea of using copy_if and back_inserter from chatGPT.  
+*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <fstream>
 #include <algorithm>
@@ -58,7 +66,7 @@ namespace sdds {
 
 				rowStream.getline(tempc, 5);
 				temp = std::string(tempc);
-				c.numOfresolved = std::stoi(temp);
+				c.m_resolved = std::stoi(temp);
 
 				statistics.push_back(c);
 			}
@@ -71,7 +79,7 @@ namespace sdds {
 		std::vector<unsigned int> temp(statistics.size());
 		std::transform(statistics.begin(), statistics.end(), temp.begin(), [](Crime c) {return c.numOfCases; });
 		totalCrime = std::accumulate(temp.begin(), temp.end(), 0);
-		std::transform(statistics.begin(), statistics.end(), temp.begin(), [](Crime c) {return c.numOfresolved; });
+		std::transform(statistics.begin(), statistics.end(), temp.begin(), [](Crime c) {return c.m_resolved; });
 		totalResolved = std::accumulate(temp.begin(), temp.end(), 0);
 
 		for_each(statistics.begin(), statistics.end(), [&](const Crime& c) {
@@ -92,7 +100,7 @@ namespace sdds {
 		out << c.numOfCases;
 		out << " | ";
 		out.width(3);
-		out << c.numOfresolved;
+		out << c.m_resolved;
 		out << " |" << endl;
 			});
 		out << "----------------------------------------------------------------------------------------" << endl;
@@ -113,7 +121,7 @@ namespace sdds {
 				return c1.numOfCases < c2.numOfCases;
 			}
 			else if (strcmp(filter, "Resolved") == 0) {
-				return c1.numOfresolved < c2.numOfresolved;
+				return c1.m_resolved < c2.m_resolved;
 			}
 			  });
 	}
@@ -152,7 +160,7 @@ namespace sdds {
 		out << theCrime.numOfCases;
 		out << " | ";
 		out.width(3);
-		out << theCrime.numOfresolved;
+		out << theCrime.m_resolved;
 		out << " |";
 		return out;
 	}

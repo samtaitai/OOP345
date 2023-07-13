@@ -52,12 +52,12 @@ int main(int argc, char** argv)
 	statistics.sort("Resolved");
 	statistics.display(std::cout);
 	printbar();
-	/*
+	
 	printHeader("The Statistics with fixed Crime Type Names");
 	statistics.cleanList();
 	statistics.display(std::cout);
 	printbar();
-
+	/*
 	{
 		// looking for "Fraud" in the data collections
 		if (statistics.inCollection("Fraud"))

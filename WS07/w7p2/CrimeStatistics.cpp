@@ -117,12 +117,21 @@ namespace sdds {
 			}
 			  });
 	}
+	void CrimeStatistics::cleanList()
+	{
+		std::replace_if(statistics.begin(), statistics.end(), [](Crime c) {return c.crime.compare("[None]") == 0; }, "");
+	}
 	std::string trim(std::string& str)
 	{
 		const std::string WHITESPACE = " \n\r\t\f\v";
 		str.erase(str.find_last_not_of(WHITESPACE) + 1); //"..charlie****" from e+1 to end
 		str.erase(0, str.find_first_not_of(WHITESPACE)); //"****charlie" from start to last *
 		return str;
+	}
+	Crime& Crime::operator=(const char* cstring)
+	{
+		this->crime = cstring;
+		return *this;
 	}
 }
 

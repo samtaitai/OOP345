@@ -13,6 +13,7 @@ namespace sdds {
 		unsigned int year{};
 		unsigned int numOfCases{};
 		unsigned int numOfresolved{};
+		Crime& operator=(const char* cstring);
 	};
 	class CrimeStatistics
 	{
@@ -29,6 +30,7 @@ namespace sdds {
 
 	std::ostream& operator<<(std::ostream& out, const Crime& theCrime);
 	std::string trim(std::string& str);
+	
 
 }
 

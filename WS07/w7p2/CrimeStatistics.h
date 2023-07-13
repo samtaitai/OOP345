@@ -24,8 +24,8 @@ namespace sdds {
 		void display(std::ostream& out) const;
 		void sort(const char* filter);
 		void cleanList();
-		bool inCollection() const;
-		std::list<Crime> getListForProvince() const;
+		bool inCollection(const char* crime) const;
+		std::list<Crime> getListForProvince(const char* province) const;
 	};
 
 	std::ostream& operator<<(std::ostream& out, const Crime& theCrime);

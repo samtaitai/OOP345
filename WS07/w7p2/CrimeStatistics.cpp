@@ -121,6 +121,41 @@ namespace sdds {
 	{
 		std::replace_if(statistics.begin(), statistics.end(), [](Crime c) {return c.crime.compare("[None]") == 0; }, "");
 	}
+	bool CrimeStatistics::inCollection(const char* crime) const
+	{
+		return std::any_of(statistics.begin(), statistics.end(), [crime](Crime c) { return c.crime.compare(crime) == 0; });
+	}
+	std::list<Crime> CrimeStatistics::getListForProvince(const char* province) const
+	{
+		std::list<Crime> result;
+		std::copy_if(statistics.begin(), statistics.end(), std::back_inserter(result), 
+			[province](Crime c) { return c.province.compare(province) == 0; });
+
+		return result;
+	}
+	std::ostream& operator<<(std::ostream& out, const Crime& theCrime)
+	{
+		out << "| ";
+		out.width(21);
+		out << std::left << theCrime.province;
+		out << " | ";
+		out.width(15);
+		out << theCrime.district;
+		out << " | ";
+		out.width(20);
+		out << theCrime.crime;
+		out << " | ";
+		out.width(6);
+		out << std::right << theCrime.year;
+		out << " | ";
+		out.width(4);
+		out << theCrime.numOfCases;
+		out << " | ";
+		out.width(3);
+		out << theCrime.numOfresolved;
+		out << " |";
+		return out;
+	}
 	std::string trim(std::string& str)
 	{
 		const std::string WHITESPACE = " \n\r\t\f\v";

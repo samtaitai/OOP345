@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 	statistics.cleanList();
 	statistics.display(std::cout);
 	printbar();
-	/*
+	
 	{
 		// looking for "Fraud" in the data collections
 		if (statistics.inCollection("Fraud"))
@@ -65,17 +65,18 @@ int main(int argc, char** argv)
 		else
 			std::cout << "There are no Fraud cases in the data collection.\n";
 	}
-
+	
 	{
 		printHeader("Crimes in Ontario");
+		
 		auto col = statistics.getListForProvince("Ontario");
 		for (auto& crime : col)
 		{
-			crime.m_resolved -= 3;
+			crime.numOfresolved -= 3;
 			std::cout << crime << "\n";
 		}
 		printbar();
 	}
-	*/
+	
 	return cout;
 }

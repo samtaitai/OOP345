@@ -2,9 +2,9 @@
 * Name: Soyon Lee
 * Email: slee550@myseneca.ca
 * ID: 179142211
-* Date: 13 July 2023
-* Citation:
-* I've got an idea of using copy_if and back_inserter from chatGPT.  
+* Date: 14 July 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <fstream>
@@ -76,13 +76,12 @@ namespace sdds {
 	{
 		unsigned int totalCrime{};
 		unsigned int totalResolved{};
-		std::vector<unsigned int> temp(statistics.size());
-		std::transform(statistics.begin(), statistics.end(), temp.begin(), [](Crime c) {return c.numOfCases; });
-		totalCrime = std::accumulate(temp.begin(), temp.end(), 0);
-		std::transform(statistics.begin(), statistics.end(), temp.begin(), [](Crime c) {return c.m_resolved; });
-		totalResolved = std::accumulate(temp.begin(), temp.end(), 0);
+		totalCrime = std::accumulate(statistics.begin(), statistics.end(), 0, [](const unsigned int& result, const Crime& c) {
+			return result + c.numOfCases; });
+		totalResolved = std::accumulate(statistics.begin(), statistics.end(), 0, [](const unsigned int& result, const Crime& c) {
+			return result + c.m_resolved; });
 
-		for_each(statistics.begin(), statistics.end(), [&](const Crime& c) {
+		for_each(statistics.begin(), statistics.end(), [&out](const Crime& c) {
 			out << "| ";
 		out.width(21);
 		out << std::left << c.province;
@@ -110,6 +109,7 @@ namespace sdds {
 	}
 	void CrimeStatistics::sort(const char* filter)
 	{
+		//std::sort != std::list::sort
 		std::sort(statistics.begin(), statistics.end(), [filter](Crime c1, Crime c2) { 
 			if (strcmp(filter, "Province") == 0) {
 				return c1.province < c2.province;
@@ -127,14 +127,20 @@ namespace sdds {
 	}
 	void CrimeStatistics::cleanList()
 	{
+		//transform also works
 		std::replace_if(statistics.begin(), statistics.end(), [](Crime c) {return c.crime.compare("[None]") == 0; }, "");
 	}
 	bool CrimeStatistics::inCollection(const char* crime) const
 	{
+		//count if also works
 		return std::any_of(statistics.begin(), statistics.end(), [crime](Crime c) { return c.crime.compare(crime) == 0; });
 	}
 	std::list<Crime> CrimeStatistics::getListForProvince(const char* province) const
 	{
+		//count if <- for figuring out size of container
+		//std::list<Crime> result(size);
+		//now 3rd arg can be result.begin()
+		//but with back_inserter, no need of allocation 
 		std::list<Crime> result;
 		std::copy_if(statistics.begin(), statistics.end(), std::back_inserter(result), 
 			[province](Crime c) { return c.province.compare(province) == 0; });

@@ -1,0 +1,32 @@
+>>list all the STL functions that you have used in this workshop; explain your reasoning for choosing each one, and not another.
+accumulate: I need a sum of cases or resolved cases. 
+sort: it's self explanatory.
+replace_if: if a title of a crime is [None], I want to replace it with blank. 
+any_of: there must be 'some' cases that will match the value given as parameter, so any_of. 
+copy_if: if some elements meets certain condition, I need to create(copy) another container to hold them. 
+
+>>present the advantages of using STL algorithms vs. implementing the functionality by yourself using loops.
+I guess using STL algorithms causes less error compared to implementing a loop logic by myself, cause there preset algorithms already stand the test of time. Much less code also would be a benefit.  
+
+>>the function that sorts the collection of crimes receives as a parameter the field name to use; this can create errors if the client specifies an invalid field (or misspells it). How would you redesign that function to prevent the client to specify an invalid string, allowing any error to be detected by the compiler?
+
+I could add 'else' branch below where I can throw exception like 'Invalid filter'.
+
+void CrimeStatistics::sort(const char* filter)
+	{
+		//std::sort != std::list::sort
+		std::sort(statistics.begin(), statistics.end(), [filter](Crime c1, Crime c2) { 
+			if (strcmp(filter, "Province") == 0) {
+				return c1.province < c2.province;
+			}
+			else if (strcmp(filter, "Crime") == 0) {
+				return c1.crime < c2.crime;
+			}
+			else if (strcmp(filter, "Cases") == 0) {
+				return c1.numOfCases < c2.numOfCases;
+			}
+			else if (strcmp(filter, "Resolved") == 0) {
+				return c1.m_resolved < c2.m_resolved;
+			}
+			  });
+	}

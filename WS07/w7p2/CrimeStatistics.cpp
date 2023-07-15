@@ -103,14 +103,14 @@ namespace sdds {
 		out << " |" << endl;
 			});
 		out << "----------------------------------------------------------------------------------------" << endl;
-		out << "| " << std::setw(79) << "Total Crimes : " << totalCrime << " | " << endl;
-		out << "| " << std::setw(79) << "Total Resolved Cases : " << totalResolved << " | " << endl;
+		out << "| " << std::setw(79) << "Total Crimes:  " << totalCrime << " |" << endl;
+		out << "| " << std::setw(79) << "Total Resolved Cases:  " << totalResolved << " |" << endl;
 
 	}
 	void CrimeStatistics::sort(const char* filter)
 	{
 		//std::sort != std::list::sort
-		std::sort(statistics.begin(), statistics.end(), [filter](Crime c1, Crime c2) { 
+		std::sort(statistics.begin(), statistics.end(), [filter](Crime c1, Crime c2) {
 			if (strcmp(filter, "Province") == 0) {
 				return c1.province < c2.province;
 			}
@@ -123,6 +123,7 @@ namespace sdds {
 			else if (strcmp(filter, "Resolved") == 0) {
 				return c1.m_resolved < c2.m_resolved;
 			}
+			else throw "Invalid filter";
 			  });
 	}
 	void CrimeStatistics::cleanList()

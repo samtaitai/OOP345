@@ -8,6 +8,7 @@
 #include <memory>
 #include <utility>
 #include <fstream>
+#include <numeric>
 
 namespace sdds {
 	template<typename T>
@@ -44,11 +45,10 @@ namespace sdds {
 			int num{};
 			std::vector<int> prod;
 
-			for (int i = 0; i < sample.size(); i++) {
-				num = sample[i] - '0';
+			for (size_t i = 0; i < id.length(); i++) {
+				num = id[i] - '0';
 				if (i % 2 == 0) {
-					evenProd = num * 2;
-					std::cout << i << "'s: " << evenProd << std::endl;
+					evenProd = num * 1;
 					if (evenProd >= 10) {
 						fDigit = evenProd / 10;
 						sDigit = evenProd % 10;
@@ -57,8 +57,7 @@ namespace sdds {
 					prod.push_back(evenProd);
 				}
 				else {
-					oddProd = num * 1;
-					std::cout << i << "'s: " << oddProd << std::endl;
+					oddProd = num * 2;
 					if (oddProd >= 10) {
 						fDigit = oddProd / 10;
 						sDigit = oddProd % 10;
@@ -75,8 +74,9 @@ namespace sdds {
 
 		//TODO: Overload the += operator with a raw pointer
 		// as a second operand.
-		void operator+=(GeneratingList& self, const &T elem) {
-			//size+1 dma stuff
+		void operator+=(const T* elem) {
+
+			this->list.push_back(*elem);
 		}
 
 		void print(std::ostream& os) const {

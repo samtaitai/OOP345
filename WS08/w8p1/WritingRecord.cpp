@@ -22,19 +22,19 @@ namespace sdds {
 		//then push it to activeEmp
 		for (size_t i = 0; i < emp.size(); i++) {
 			for (size_t j = 0; j < sal.size(); j++) {
-				if (emp[i].id == sal[i].id) {
+				if (emp[i].id == sal[j].id) {
 					name = emp[i].name;
 					sin = emp[i].id;
-					salary = sal[i].salary;
+					salary = sal[j].salary;
 					temp = new EmployeeWage(name, salary);
+					temp->rangeValidator(); //will be caught w8_p1.cpp
+					if (activeEmp.idValidator(sin)) {
+						activeEmp += temp;
+					}
+					delete temp;
 				}
 			}
 		}
-
-		temp->rangeValidator(); //will be caught w8_p1.cpp
-
-		if (activeEmp.idValidator(sin)) activeEmp += temp;
-
 		return activeEmp;
 	}
 }

@@ -58,7 +58,7 @@ namespace sdds {
 			os.setf(ios::left);
 			os.width(m_widthField);
 			os << m_name;
-			os << " | ";
+			os << "| ";
 			os.fill('0');
 			os.unsetf(ios::left);
 			os.width(6);
@@ -79,7 +79,7 @@ namespace sdds {
 			os.setf(ios::left);
 			os.width(m_widthField);
 			os << m_name;
-			os << " | ";
+			os << "| ";
 			os.fill('0');
 			os.unsetf(ios::left);
 			os.width(6);

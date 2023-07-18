@@ -11,6 +11,7 @@ namespace sdds {
 		bool m_isFilled{ false };
 
 		Item(const std::string& src) : m_itemName(src) {};
+		//~Item() { delete this; }
 
 	};
 	class CustomerOrder

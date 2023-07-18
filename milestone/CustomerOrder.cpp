@@ -28,9 +28,11 @@ namespace sdds {
 
 			m_lstItem = new Item * [m_cntItem];
 
-			//citation chatGPT
+			//
 			std::copy(temp.begin(), temp.end(), m_lstItem);
 
+			//for (auto item : temp) delete item; error
+			
 			if (m_widthField < util.getFieldWidth()) m_widthField = util.getFieldWidth();
 		}
 		catch (...) { cout << "   ERROR: No token.\n"; }
@@ -103,9 +105,9 @@ namespace sdds {
 			os << '[';
 			os << setw(6) << setfill('0') << m_lstItem[i]->m_serialNumber;
 			os << "] ";
-			os << setfill(' ') << left << setw(m_widthField) << m_lstItem[i]->m_itemName;
+			os << setfill(' ') << left << setw(m_widthField-1) << m_lstItem[i]->m_itemName;
 			if (m_lstItem[i]->m_isFilled) os << "FILLED" << endl;
-			else os << " - TO BE FILLED" << endl;
+			else os << "- TO BE FILLED" << endl;
 		}
 	}
 }

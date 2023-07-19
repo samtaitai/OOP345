@@ -45,6 +45,9 @@ namespace sdds {
 	}
 	CustomerOrder& CustomerOrder::operator=(CustomerOrder&& Ro) noexcept {
 		if (this != &Ro) {
+			for (size_t i = 0; i < m_cntItem; i++) {
+				delete m_lstItem[i];
+			}
 			delete[] m_lstItem;
 			m_lstItem = Ro.m_lstItem;
 			Ro.m_lstItem = nullptr;

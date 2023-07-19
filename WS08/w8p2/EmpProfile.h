@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 19 July 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
 #ifndef SDDS_EMPPROFILE_H
 #define SDDS_EMPPROFILE_H
 
@@ -80,6 +88,12 @@ namespace sdds {
 		void rangeValidator() {
 			if (m_salary < 0 || m_salary > 99999) {
 				delete this;
+				throw std::string("*** Employees salaray range is not valid");
+			}
+		}
+
+		void smartRangeValidator() {
+			if (m_salary < 0 || m_salary > 99999) {
 				throw std::string("*** Employees salaray range is not valid");
 			}
 		}

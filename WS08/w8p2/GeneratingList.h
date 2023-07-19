@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 19 July 2023
+* I have done all the coding by myselfand only copied the code that
+* my professor provided to complete my workshopsand assignments.
+*/
 #ifndef SDDS_GENERATINGLIST_H
 #define SDDS_GENERATINGLIST_H
 
@@ -8,6 +16,7 @@
 #include <memory>
 #include <utility>
 #include <fstream>
+#include <numeric>
 
 namespace sdds {
 	template<typename T>
@@ -73,7 +82,10 @@ namespace sdds {
 
 		//TODO: Overload the += operator with a smart pointer
 		// as a second operand.
+		void operator+=(const std::unique_ptr<T>&& elem) {
 
+			this->list.push_back(std::move(*elem));
+		}
 		
 
 		//TODO: Overload the += operator with a raw pointer

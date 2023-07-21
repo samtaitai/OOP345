@@ -22,7 +22,7 @@ namespace sdds {
 		std::string sin{};
 		double salary{};
 		EmployeeWage* temp{};
-		
+
 		for (size_t i = 0; i < emp.size(); i++) {
 			for (size_t j = 0; j < sal.size(); j++) {
 				if (emp[i].id == sal[j].id) {
@@ -30,15 +30,21 @@ namespace sdds {
 					sin = emp[i].id;
 					salary = sal[j].salary;
 					temp = new EmployeeWage(name, salary);
-					temp->rangeValidator(); //will be caught w8_p1.cpp
-					if (activeEmp.idValidator(sin)) {
-						activeEmp += temp;
+
+					try {
+						temp->rangeValidator(); //will be caught w8_p1.cpp
+						if (activeEmp.idValidator(sin)) {
+							activeEmp += temp;
+						};
+						delete temp;
 					}
-					delete temp;
+					catch (...) {
+						delete temp;
+						throw std::string("*** Employees salaray range is not valid");
+					};
 				}
 			}
 		}
-
 		return activeEmp;
 	}
 
@@ -57,14 +63,13 @@ namespace sdds {
 					sin = emp[i].id;
 					salary = sal[j].salary;
 					std::unique_ptr<EmployeeWage> temp(new EmployeeWage(name, salary));
-					temp->smartRangeValidator(); //will be caught w8_p1.cpp
+					temp->rangeValidator(); //will be caught w8_p1.cpp
 					if (activeEmp.idValidator(sin)) {
 						activeEmp += std::move(temp);
 					}
 				}
 			}
 		}
-
 		return activeEmp;
 	}
 }

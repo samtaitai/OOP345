@@ -22,11 +22,12 @@ namespace sdds {
 
 	public:
 		Station(const std::string& row);
-		const std::string& getItemName() const;
-		size_t getNextSerialNumber();
-		size_t getQuantity() const;
-		void updateQuantity();
-		void display(std::ostream& os, bool full) const;
+		virtual const std::string& getItemName() const;
+		virtual size_t getNextSerialNumber();
+		virtual size_t getQuantity() const;
+		virtual void updateQuantity();
+		virtual void display(std::ostream& os, bool full) const;
+		virtual ~Station() = default;
 
 	};
 }

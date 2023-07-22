@@ -33,6 +33,10 @@ namespace sdds {
 		bool isItemFilled(const std::string& itemName) const;
 		void fillItem(Station& station, std::ostream& os);
 		void display(std::ostream& os) const;
+
+		//
+		size_t getCntItem() { return m_cntItem; };
+		Item** getLstItem() { return m_lstItem; };
 	};
 }
 

@@ -34,6 +34,21 @@ void smartRangeValidator() {
 			}
 		}
 
+Later, the way to handle an exception from 'rangeValidator' was refined like below.
+Below, rangeValidator throws an exception, the control goes catch block. Scrap unnecessary 'temp', then rethrow an exception to transfer the control to the client, where another catch block will print the error message as the output does. 
+ 
+try {
+						temp->rangeValidator(); //will be caught w8_p1.cpp
+						if (activeEmp.idValidator(sin)) {
+							activeEmp += temp;
+						};
+						delete temp;
+					}
+					catch (...) {
+						delete temp;
+						throw std::string("*** Employees salaray range is not valid");
+					};
+
 Smart version of writeRaw function(writeSmart) doesn't need to care about deleting the temporal pointer 'temp'. In the smart version, it will destroy itself when it goes out of scope.  
 
 GeneratingList<EmployeeWage> writeRaw(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {

@@ -1,0 +1,91 @@
+>>the advantage that smart pointer syntax provides. Use example from your code to support your explanation.
+
+Because it deals with deallocation by itself, it reduces the probability of human error. 
+In the case of a raw pointer, if the salary is out of normal range, the logic would be: 
+void rangeValidator() {
+			if (m_salary < 0 || m_salary > 99999) {
+				delete this;
+				throw std::string("*** Employees salaray range is not valid");
+			}
+		}
+delete the invaild object is on a programmer which could cause human error will lead memory leaks. 
+
+
+>>the difference between raw and smart pointer syntax in your solution.
+
+operator += with a smart pointer
+void operator+=(const std::unique_ptr<T>&& elem) {
+
+			this->list.push_back(std::move(*elem));
+		}
+because elem is std::unique_ptr which is unable to copy itself, it takes move operation when it is assigned to the left operand. Even though std::shared_ptr can copy itself but each elem is individual record, I suppose using std::unique_ptr fit for the context than std::shared_ptr. 
+
+operator += with a raw pointer
+void operator+=(const T* elem) {
+
+			this->list.push_back(*elem);
+		}
+
+I ended up making another rangeValidator function for a smart pointer because I don't need to delete the object anymore also I shouldn't. The memory was deleted by manually once than automatically again which caused error. 
+
+void smartRangeValidator() {
+			if (m_salary < 0 || m_salary > 99999) {
+				throw std::string("*** Employees salaray range is not valid");
+			}
+		}
+
+Smart version of writeRaw function(writeSmart) doesn't need to care about deleting the temporal pointer 'temp'. In the smart version, it will destroy itself when it goes out of scope.  
+
+GeneratingList<EmployeeWage> writeRaw(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {
+		GeneratingList<EmployeeWage> activeEmp;
+		// TODO: Add your code here to build a list of employees
+		//         using raw pointers
+		std::string name{};
+		std::string sin{};
+		double salary{};
+		EmployeeWage* temp{};
+		
+		for (size_t i = 0; i < emp.size(); i++) {
+			for (size_t j = 0; j < sal.size(); j++) {
+				if (emp[i].id == sal[j].id) {
+					name = emp[i].name;
+					sin = emp[i].id;
+					salary = sal[j].salary;
+					temp = new EmployeeWage(name, salary);
+					temp->rangeValidator(); //will be caught w8_p1.cpp
+					if (activeEmp.idValidator(sin)) {
+						activeEmp += temp;
+					}
+					delete temp;
+				}
+			}
+		}
+
+		return activeEmp;
+	}
+
+GeneratingList<EmployeeWage> writeSmart(const GeneratingList<Employee>& emp, const GeneratingList<Salary>& sal) {
+		GeneratingList<EmployeeWage> activeEmp;
+		// TODO: Add your code here to build a list of employees
+		//         using smart pointers
+		std::string name{};
+		std::string sin{};
+		double salary{};
+
+		for (size_t i = 0; i < emp.size(); i++) {
+			for (size_t j = 0; j < sal.size(); j++) {
+				if (emp[i].id == sal[j].id) {
+					name = emp[i].name;
+					sin = emp[i].id;
+					salary = sal[j].salary;
+					std::unique_ptr<EmployeeWage> temp(new EmployeeWage(name, salary));
+					temp->smartRangeValidator(); //will be caught w8_p1.cpp
+					if (activeEmp.idValidator(sin)) {
+						activeEmp += std::move(temp);
+					}
+				}
+			}
+		}
+
+		return activeEmp;
+	}

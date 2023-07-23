@@ -21,7 +21,7 @@ namespace sdds {
 		string row{};
 
 		try {
-
+			//m_activeLine
 			while (!in.eof()) {
 				Utilities util;
 				bool more = true;
@@ -42,14 +42,24 @@ namespace sdds {
 				if(it2 != stations.end()) (*it1)->setNextStation(*it2);
 				
 			} 
-
+			//m_firstStation
 			for (auto s : stations) {
 
-				bool found = find_if(m_activeLine.begin(), m_activeLine.end(),
-					[&s](Workstation* w) { return s->getItemName() == w->getItemName(); }) != m_activeLine.end();
-				if (!found) m_firstStation = s; break;
-			}
+				bool found{};
+				vector<Workstation*> next;
 
+				transform(m_activeLine.begin(), m_activeLine.end(),
+					back_inserter(next), [](Workstation* w) { return w->getNextStation(); });
+				
+				if (any_of(next.begin(), next.end(),
+					[&s](Workstation* w) { return s->getItemName() == w->getItemName(); })) {
+					found = true;
+				}
+				if (!found) {
+					m_firstStation = s;
+				}
+			}
+			//m_cntCustomerOrder
 			m_cntCustomerOrder = g_pending.size();
 		}
 		catch (...) {
@@ -60,17 +70,12 @@ namespace sdds {
 	{
 		std::vector<Workstation*> reordered;
 
+		reordered.push_back(m_firstStation);
 		for (auto i = 0; i < m_activeLine.size()-1; i++) {
-			if (m_activeLine[i]->getItemName() == m_activeLine[i + 1]->getNextStation()->getItemName()) {
-				reordered.push_back(m_activeLine[i + 1]);
-				reordered.push_back(m_activeLine[i]);
-			}
-			else {
-				reordered.push_back(m_activeLine[i]);
-				reordered.push_back(m_activeLine[i + 1]);
-			}
+			reordered.push_back(reordered[i]->getNextStation());
 		}
-		m_activeLine = reordered; //use algorithm?
+		copy(reordered.begin(), reordered.end(), m_activeLine.begin());
+
 	}
 	bool LineManager::run(std::ostream& os)
 	{

@@ -15,13 +15,21 @@ namespace sdds {
 	{
 		bool result{};
 
-		if (m_orders.front().isOrderFilled() || this->getQuantity() <= 0) {
+		if (m_orders.front().isItemFilled(this->getItemName())
+			|| this->getQuantity() <= 0) {
 			if (m_pNextStation == nullptr) {
-				if (!m_orders.front().isOrderFilled()) g_incomplete.push_back(m_orders.front());
-				else g_completed.push_back(m_orders.front());
+				if (!m_orders.front().isOrderFilled()) {
+					g_incomplete.push_back(m_orders.front());
+					m_orders.pop_front();
+				}
+				else {
+					g_completed.push_back(m_orders.front());
+					m_orders.pop_front();
+				}
 			}
 			else {
 				m_pNextStation->m_orders.push_back(m_orders.front());
+				m_orders.pop_front();
 			}
 			result = true;
 		}
@@ -39,17 +47,8 @@ namespace sdds {
 	}
 	void Workstation::display(std::ostream& os) const
 	{
-		/*for (auto order : m_orders) {
-			if (order == m_orders.back()) {
-			}
-			else {
-				for (size_t i = 0; i < order.getCntItem() - 1; i++) {
-					os << order.getLstItem()[i]->m_itemName << " --> "
-						<< order.getLstItem()[i + 1]->m_itemName << std::endl;
-				}
-			}
-			
-		}*/
+		if (m_pNextStation != nullptr) os << this->getItemName() << " --> " << m_pNextStation->getItemName() << std::endl;
+		else os << this->getItemName() << " --> End of Line" << std::endl;
 	}
 	Workstation& Workstation::operator+=(CustomerOrder&& newOrder)
 	{

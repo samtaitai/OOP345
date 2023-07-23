@@ -47,7 +47,7 @@ namespace sdds {
 	}
 	void Workstation::display(std::ostream& os) const
 	{
-		if (m_pNextStation != nullptr) os << this->getItemName() << " --> " << m_pNextStation->getItemName() << std::endl;
+		if (m_pNextStation != this) os << this->getItemName() << " --> " << m_pNextStation->getItemName() << std::endl;
 		else os << this->getItemName() << " --> End of Line" << std::endl;
 	}
 	Workstation& Workstation::operator+=(CustomerOrder&& newOrder)

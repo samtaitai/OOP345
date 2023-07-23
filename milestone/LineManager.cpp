@@ -1,5 +1,8 @@
 #include <fstream>
+#include <algorithm>
+#include <map>
 #include "LineManager.h"
+#include "Utilities.h"
 
 using namespace std;
 
@@ -11,19 +14,43 @@ namespace sdds {
 	std::deque<CustomerOrder> g_incomplete;
 
 	LineManager::LineManager(const std::string& file, const std::vector<Workstation*>& stations)
-	{
+	{ 
 		ifstream in(file);
-		string record{};
-		Workstation* temp{};
+		string first{};
+		string second{};
+		string row{};
 
 		try {
+
 			while (!in.eof()) {
-				getline(in, record);
-				temp = new Workstation(record); //why not smartpointer?
-				m_activeLine.push_back(temp);
+				Utilities util;
+				bool more = true;
+				size_t pos = 0u;
+
+				getline(in, row);
+				first = util.extractToken(row, pos, more);
+				second = util.extractToken(row, pos, more);
+			
+				auto it1 = find_if(stations.begin(), stations.end(),
+					[&first](Workstation* station) {return station->getItemName() == first; });
+				m_activeLine.push_back(*it1);
+
+				auto it2 = find_if(stations.begin(), stations.end(),
+					[&second](Workstation* station) {return station->getItemName() == second; });
+				
+				//bookcase->bookcase can't fix it
+				if(it2 != stations.end()) (*it1)->setNextStation(*it2);
+				
+			} 
+
+			for (auto s : stations) {
+
+				bool found = find_if(m_activeLine.begin(), m_activeLine.end(),
+					[&s](Workstation* w) { return s->getItemName() == w->getItemName(); }) != m_activeLine.end();
+				if (!found) m_firstStation = s; break;
 			}
+
 			m_cntCustomerOrder = g_pending.size();
-			m_firstStation = m_activeLine[0];
 		}
 		catch (...) {
 			throw string("Something goes wrong");

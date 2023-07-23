@@ -29,6 +29,9 @@ namespace sdds {
 		virtual void display(std::ostream& os, bool full) const;
 		virtual ~Station() = default;
 
+		//
+		virtual bool operator==(std::string val) const { return m_name == val; };
+
 	};
 }
 

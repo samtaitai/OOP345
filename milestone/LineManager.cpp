@@ -83,6 +83,7 @@ namespace sdds {
 		static size_t count{};
 		bool done{};
 		os << "Line Manager Iteration: " << count++ << endl;
+
 		while (!g_pending.empty()) {
 			*m_firstStation += std::move(g_pending.front());
 			g_pending.pop_front();

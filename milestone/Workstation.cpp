@@ -52,7 +52,7 @@ namespace sdds {
 	}
 	Workstation& Workstation::operator+=(CustomerOrder&& newOrder)
 	{
-		m_orders.push_back(newOrder);
+		m_orders.push_back(std::move(newOrder));
 		return *this;
 	}
 }

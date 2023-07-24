@@ -100,12 +100,12 @@ int main(int argc, char** argv)
 		lm.display(cout);
 		cout << endl << endl;
 
-		//cout << "========================================" << endl;
-		//cout << "=           Filling Orders             =" << endl;
-		//cout << "========================================" << endl;
-		////run the assembly line until all orders processed
-		//while (!lm.run(cout));		
-		//cout << endl << endl;
+		cout << "========================================" << endl;
+		cout << "=           Filling Orders             =" << endl;
+		cout << "========================================" << endl;
+		//run the assembly line until all orders processed
+		while (!lm.run(cout));		
+		cout << endl << endl;
 	}
 	catch (const string& msg) {
 		cerr << msg << '\n';

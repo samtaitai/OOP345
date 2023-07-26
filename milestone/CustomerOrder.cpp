@@ -1,3 +1,11 @@
+// Name: Soyon Lee
+// Seneca Student ID: 179142211
+// Seneca email: slee550@myseneca.ca
+// Date of completion: 26 July 2023
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
+
 #include <vector>
 #include <iomanip>
 #include <algorithm>
@@ -87,7 +95,7 @@ namespace sdds {
 
 		for (size_t i = 0; i < m_cntItem; i++) {
 			if (station.getItemName() == m_lstItem[i]->m_itemName &&
-				!m_lstItem[i]->m_isFilled) {
+				!m_lstItem[i]->m_isFilled) { //breakthrough
 				if (station.getQuantity() > 0) {
 					if (!done) {
 						m_lstItem[i]->m_isFilled = true;

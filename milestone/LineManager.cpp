@@ -1,3 +1,9 @@
+// Name: Soyon Lee
+// Seneca Student ID: 179142211
+// Seneca email: slee550@myseneca.ca
+// Date of completion: 26 July 2023
+//
+// how to use find_if in the LM constructor was inspired by chatGPT.   
 #include <fstream>
 #include <algorithm>
 #include <map>

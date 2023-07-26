@@ -1,3 +1,10 @@
+// Name: Soyon Lee
+// Seneca Student ID: 179142211
+// Seneca email: slee550@myseneca.ca
+// Date of completion: 26 July 2023
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #include <string>
 #include <iostream>
 #include "Station.h"

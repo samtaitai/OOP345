@@ -77,7 +77,7 @@ namespace sdds {
 		std::vector<Workstation*> reordered;
 
 		reordered.push_back(m_firstStation);
-		for (auto i = 0; i < m_activeLine.size()-1; i++) {
+		for (size_t i = 0; i < m_activeLine.size()-1; i++) {
 			reordered.push_back(reordered[i]->getNextStation());
 		}
 		copy(reordered.begin(), reordered.end(), m_activeLine.begin());

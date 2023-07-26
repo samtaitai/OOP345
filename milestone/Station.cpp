@@ -5,6 +5,7 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+#include <iomanip>
 #include "Station.h"
 #include "Utilities.h"
 
@@ -50,14 +51,9 @@ namespace sdds {
 	void Station::display(std::ostream& os, bool full) const
 	{
 		if (full) {
-			os.fill('0');
-			os.width(3);
-			os << m_id;
-			os.fill(' ');
+			os << setw(3) << setfill('0') << right << m_id;
 			os << " | ";
-			os.setf(ios::left);
-			os.width(m_widthField);
-			os << m_name;
+			os << setw(m_widthField) << setfill(' ') << left << m_name;
 			os << "| ";
 			os.fill('0');
 			os.unsetf(ios::left);

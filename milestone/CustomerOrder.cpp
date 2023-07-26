@@ -115,10 +115,10 @@ namespace sdds {
 		os << m_name << " - " << m_product << endl;
 		for (size_t i = 0; i < m_cntItem; i++) {
 			os << '[';
-			os << setw(6) << setfill('0') << m_lstItem[i]->m_serialNumber;
+			os << setw(6) << setfill('0') << right << m_lstItem[i]->m_serialNumber;
 			os << "] ";
 			os << setfill(' ') << left << setw(m_widthField-1) << m_lstItem[i]->m_itemName;
-			if (m_lstItem[i]->m_isFilled) os << "FILLED" << endl;
+			if (m_lstItem[i]->m_isFilled) os << "- FILLED" << endl;
 			else os << "- TO BE FILLED" << endl;
 		}
 	}

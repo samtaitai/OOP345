@@ -21,11 +21,11 @@ namespace sdds {
 			//else false
 		if (!m_orders.empty()) {
 			if (m_orders.front().isItemFilled(this->getItemName()) || this->getQuantity() <= 0) {
-				if (m_pNextStation == this) { //this condition suspicious
-					if (!m_orders.front().isOrderFilled()) { 
+				if (m_pNextStation == this) { 
+					if (!m_orders.front().isOrderFilled()) { //this condition suspicious
 						g_incomplete.push_back(std::move(m_orders.front()));
 					}
-					else {
+					else { 
 						g_completed.push_back(std::move(m_orders.front()));
 					}
 					m_orders.pop_front();

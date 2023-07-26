@@ -86,18 +86,19 @@ namespace sdds {
 		bool done{};
 
 		for (size_t i = 0; i < m_cntItem; i++) {
-			if (station.getItemName() == m_lstItem[i]->m_itemName) {
+			if (station.getItemName() == m_lstItem[i]->m_itemName &&
+				!m_lstItem[i]->m_isFilled) {
 				if (station.getQuantity() > 0) {
 					if (!done) {
 						m_lstItem[i]->m_isFilled = true;
 						done = true;
 						m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
 						station.updateQuantity();
-						os << "    Filled " << m_name << ", " << m_product << '[' << m_lstItem[i]->m_itemName << ']' << endl;
+						os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << ']' << endl;
 					}
 				}
 				else {
-					os << "    Unable to fill " << m_name << ", " << m_product << '[' << m_lstItem[i]->m_itemName << ']' << endl;
+					os << "    Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << ']' << endl;
 				}
 			}
 		}

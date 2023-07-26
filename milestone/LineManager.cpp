@@ -90,9 +90,11 @@ namespace sdds {
 		}
 		
 		for (auto station : m_activeLine) {
+			//os << "fill: " << station->getItemName() << endl;
 			station->fill(os);
 		}
 		for (auto station : m_activeLine) {
+			//os << "move: " << station->getItemName() << endl;
 			station->attemptToMoveOrder();
 		}
 				

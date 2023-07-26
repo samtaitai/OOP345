@@ -1,1 +1,59 @@
-...
+As the number of modules grow, it's getting more complicated to grap a clear picture of everything. CustomerOrders possess Item. Workstation inherits Station. Workstation possess CustomerOrders as a form of deque. I copied every header files word by word by hands to build each module's structure in my head. Still, some of functions: LineManager constructor, 'run', and Workstation's 'attemptToMove' was painfully hard to understand what the instruction instructs. 
+
+At the end of the day, these are the biggest challenges: 
+
+1. front() is called for empty deque
+solution: add !g_pending.empty() condition. 
+
+if (!g_pending.empty()) {
+			*m_firstStation += std::move(g_pending.front());
+			g_pending.pop_front();
+		}
+
+2. "if there is no next station in the assembly line, then the order is moved into g_completed or g_incomplete queue" but either g_incomplete or g_completed wasn't populated
+solution: m_pNextStation == this, not m_pNextStation == nullptr
+
+if (m_pNextStation == this) { 
+					if (!m_orders.front().isOrderFilled()) { //this condition suspicious
+						g_incomplete.push_back(std::move(m_orders.front()));
+					}
+					else { 
+						g_completed.push_back(std::move(m_orders.front()));
+					}
+					m_orders.pop_front();
+					result = true;
+				}
+				else {
+					*m_pNextStation += std::move(m_orders.front());
+					m_orders.pop_front();
+					result = true;
+				} 
+
+3. 'fillItem' function tries to fill a filled item
+solution: add '!m_lstItem[i]->m_isFilled' condition to 'station.getItemName() == m_lstItem[i]->m_itemName'
+				
+void CustomerOrder::fillItem(Station& station, std::ostream& os) {
+		bool done{};
+
+		for (size_t i = 0; i < m_cntItem; i++) {
+			if (station.getItemName() == m_lstItem[i]->m_itemName &&
+				!m_lstItem[i]->m_isFilled) { //breakthrough
+				if (station.getQuantity() > 0) {
+					if (!done) {
+						m_lstItem[i]->m_isFilled = true;
+						done = true;
+						m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
+						station.updateQuantity();
+						os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << ']' << endl;
+					}
+				}
+				else {
+					os << "    Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << ']' << endl;
+				}
+			}
+		}
+	}
+
+Lastly, I've grown to like STL library containers and algorithms but I still have trouble figuring out which algorithms would fit for each situation. I wish I could get to know about them earlier. 
+
+For last two terms, I've invested the most of my time on C++. Seneca students might agree with me; it's like a forced marriage. I feel love and hate about the language. I admired its strict type rule also deeply annoyed by it. It has not-so-much-intuitive syntax but everything seems highly local at the end which gives you a sense of twisted satisfaction. Very few of employers listed C++ in their job descriptions at least for co-op positions. But I think it was a good investment anyway, cause the language trained my head which will help me to pick up other object oriented programming language families in the future career.    

@@ -81,19 +81,21 @@ namespace sdds {
 	{
 		bool result{};
 		static size_t count{};
-		bool done{};
-		os << "Line Manager Iteration: " << count++ << endl;
 
-		while (!g_pending.empty()) {
+		os << "Line Manager Iteration: " << ++count << endl;
+
+		if (!g_pending.empty()) {
 			*m_firstStation += std::move(g_pending.front());
 			g_pending.pop_front();
 		}
-		while (!done) {
-			for (auto station : m_activeLine) {
-				station->fill(os);
-				done = station->attemptToMoveOrder(); //if item moved, true 
-			}
+		
+		for (auto station : m_activeLine) {
+			station->fill(os);
 		}
+		for (auto station : m_activeLine) {
+			station->attemptToMoveOrder();
+		}
+				
 		if (m_cntCustomerOrder == g_completed.size() + g_incomplete.size()) result = true;
 		return result;
 	}

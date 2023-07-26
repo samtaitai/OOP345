@@ -15,24 +15,30 @@ namespace sdds {
 	{
 		bool result{};
 
-		if (m_orders.front().isItemFilled(this->getItemName())
-			|| this->getQuantity() <= 0) {
-			if (m_pNextStation == nullptr) {
-				if (!m_orders.front().isOrderFilled()) {
-					g_incomplete.push_back(m_orders.front());
+		//if all of m_orders.front().m_lstItem.m_itemName != this->getItemName()
+		//or this->getQuantity <= 0
+			//if m_pNextStation == nullptr -> go complete or incomplete => true
+			//else false
+		if (!m_orders.empty()) {
+			if (m_orders.front().isItemFilled(this->getItemName()) || this->getQuantity() <= 0) {
+				if (m_pNextStation == this) { //this condition suspicious
+					if (!m_orders.front().isOrderFilled()) { 
+						g_incomplete.push_back(std::move(m_orders.front()));
+					}
+					else {
+						g_completed.push_back(std::move(m_orders.front()));
+					}
 					m_orders.pop_front();
+					result = true;
 				}
 				else {
-					g_completed.push_back(m_orders.front());
+					*m_pNextStation += std::move(m_orders.front());
 					m_orders.pop_front();
+					result = true;
 				}
 			}
-			else {
-				m_pNextStation->m_orders.push_back(m_orders.front());
-				m_orders.pop_front();
-			}
-			result = true;
 		}
+		
 		return result;
 	}
 

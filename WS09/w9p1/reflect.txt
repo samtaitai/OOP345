@@ -1,0 +1,30 @@
+why was necessary to use binary files in this workshop and how did you use them
+It was not necessary because data was simple texts. There's not much risk of losing data for simple texts. 
+That's how I used them: 
+ofstream outbinfile(file, ios::binary);
+outbinfile.write(text, nbytes);
+
+ifstream inbinfile(file, ios::binary);
+inbinfile.read(text, nbytes);
+
+why would be important to bind a function to its arguments, and how was it useful in this workshop
+It allows you to bind specific arguments to a function and generate a new callable object.
+As you put different values to placeholders(_1, _2, _3), you could generate multi tasks.
+
+auto c1 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+thread t1(c1, text, key, nbytes);
+
+the advantages of using multiple threads, and how did you accomplished multi-threading in this workshop
+It makes it faster. 
+Below is what I've tried to do multi-threading.  
+
+//Cryptor() is bound
+		auto c1 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+		auto c2 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+
+		//bound one is omitted
+		thread t1(c1, text, key, nbytes);
+		thread t2(c2, text, key, nbytes);
+
+		t1.join();
+		t2.join();

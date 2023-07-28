@@ -8,8 +8,10 @@
 namespace w9
 {
 	class Cryptor {
-	public: //key = 'A' = 101
-		char operator()(char in, char key) const { return in ^ key; }
+	public: 
+		char operator()(char in, char key) const { return in ^ key; } 
+		//^ is xor; if only one of the two is 1, the result is 1 
+		//101 ^ 111 result is 2? 
 	};
 	void converter(char*, char, int, const Cryptor&);
 

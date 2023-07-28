@@ -30,7 +30,7 @@ namespace w9 {
 
 		// copy from file into memory
 		input.seekg(0, std::ios::end);
-		nbytes = (int)input.tellg() + 1;
+		nbytes = (int)input.tellg() + 1; //+1 for null byte
 
 		text = new char[nbytes];
 
@@ -66,21 +66,16 @@ namespace w9 {
 	{
 		// TODO (at-home): rewrite this function to use at least two threads
 		//         to encrypt/decrypt the text.
-		converter(text, key, nbytes, Cryptor());
-		promise<void> p1;
-		promise<void> p2;
-		future<void> f1 = p1.get_future();
-		future<void> f2 = p2.get_future();
-		thread t1([&]() {
-			converter(text, key, nbytes, Cryptor());
-			p1.set_value();
-			});
-		thread t2([&]() {
-			converter(text, key, nbytes, Cryptor());
-		p2.set_value();
-			});
-		f1.wait();
-		f2.wait();
+		//converter(text, key, nbytes, Cryptor());
+
+		//Cryptor() is bound
+		auto c1 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+		auto c2 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+
+		//bound one is omitted
+		thread t1(c1, text, key, nbytes);
+		thread t2(c2, text, key, nbytes);
+
 		t1.join();
 		t2.join();
 		encoded = !encoded; 
@@ -109,17 +104,15 @@ namespace w9 {
 
 		// TODO: - allocate memory here for the file content
 		delete[] text;
-
-		inbinfile.seekg(0, ios::end);
-		nbytes = (int)inbinfile.tellg();
-
+		/*inbinfile.seekg(0, ios::end);
+		nbytes = (int)inbinfile.tellg();*/
 		text = new char[nbytes+1];
-
-		inbinfile.seekg(ios::beg);
+		//inbinfile.seekg(ios::beg);
 		
 		// TODO: - read the content of the binary file
 		inbinfile.read(text, nbytes);
 		text[nbytes] = '\0';
+		inbinfile.close();
 
 		*ofs << "\n" << nbytes << " bytes copied from binary file "
 			<< file << " into memory.\n";

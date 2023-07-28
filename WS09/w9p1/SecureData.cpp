@@ -68,16 +68,23 @@ namespace w9 {
 		//         to encrypt/decrypt the text.
 		//converter(text, key, nbytes, Cryptor());
 
+		const int chunk = nbytes / 4;
+		const int crumb = nbytes % 4;
+
 		//Cryptor() is bound
-		auto c1 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
-		auto c2 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+		auto c = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
+		//auto c2 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
 
 		//bound one is omitted
-		thread t1(c1, text, key, nbytes);
-		thread t2(c2, text, key, nbytes);
+		thread t1(c, text, key, chunk);
+		thread t2(c, text+chunk, key, chunk);
+		thread t3(c, text+2*chunk, key, chunk);
+		thread t4(c, text+3*chunk, key, chunk+crumb);
 
 		t1.join();
 		t2.join();
+		t3.join();
+		t4.join();
 		encoded = !encoded; 
 	}
 

@@ -1,3 +1,11 @@
+/*
+* Name: Soyon Lee
+* Email: slee550@myseneca.ca
+* ID: 179142211
+* Date: 28 July 2023
+* citation: 
+* I was inspired by June's work about how to split text in 'code' function. 
+*/
 // Workshop 9 - Multi-Threading
 // SecureData.cpp
 #define _CRT_SECURE_NO_WARNINGS
@@ -73,7 +81,6 @@ namespace w9 {
 
 		//Cryptor() is bound
 		auto c = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
-		//auto c2 = bind(converter, placeholders::_1, placeholders::_2, placeholders::_3, Cryptor());
 
 		//bound one is omitted
 		thread t1(c, text, key, chunk);
@@ -111,10 +118,7 @@ namespace w9 {
 
 		// TODO: - allocate memory here for the file content
 		delete[] text;
-		/*inbinfile.seekg(0, ios::end);
-		nbytes = (int)inbinfile.tellg();*/
 		text = new char[nbytes+1];
-		//inbinfile.seekg(ios::beg);
 		
 		// TODO: - read the content of the binary file
 		inbinfile.read(text, nbytes);

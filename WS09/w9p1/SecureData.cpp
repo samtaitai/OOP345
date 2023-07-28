@@ -98,7 +98,7 @@ namespace w9 {
 
 			// TODO: write data into the binary file
 			//         and close the file
-			outbinfile.write(text, this->nbytes);
+			outbinfile.write(text, nbytes);
 			outbinfile.close();
 		}
 	}
@@ -109,15 +109,20 @@ namespace w9 {
 
 		// TODO: - allocate memory here for the file content
 		delete[] text;
-		text = new char[this->nbytes];
 
+		inbinfile.seekg(0, ios::end);
+		nbytes = (int)inbinfile.tellg();
+
+		text = new char[nbytes+1];
+
+		inbinfile.seekg(ios::beg);
+		
 		// TODO: - read the content of the binary file
-		inbinfile.read(text, this->nbytes);
-		text[nbytes - 1] = '\0';
+		inbinfile.read(text, nbytes);
+		text[nbytes] = '\0';
 
 		*ofs << "\n" << nbytes << " bytes copied from binary file "
 			<< file << " into memory.\n";
-		inbinfile.close();
 
 		encoded = true;
 

@@ -67,12 +67,23 @@ namespace w9 {
 		// TODO (at-home): rewrite this function to use at least two threads
 		//         to encrypt/decrypt the text.
 		converter(text, key, nbytes, Cryptor());
-		promise<char> p;
-		future<char> f = p.get_future();
-		thread t(converter, ref(p));
-		strcpy(this->text, (const char*)f.get());
-		t.join();
-		encoded = !encoded; //???
+		promise<void> p1;
+		promise<void> p2;
+		future<void> f1 = p1.get_future();
+		future<void> f2 = p2.get_future();
+		thread t1([&]() {
+			converter(text, key, nbytes, Cryptor());
+			p1.set_value();
+			});
+		thread t2([&]() {
+			converter(text, key, nbytes, Cryptor());
+		p2.set_value();
+			});
+		f1.wait();
+		f2.wait();
+		t1.join();
+		t2.join();
+		encoded = !encoded; 
 	}
 
 	void SecureData::backup(const char* file) {
@@ -87,7 +98,7 @@ namespace w9 {
 
 			// TODO: write data into the binary file
 			//         and close the file
-			outbinfile.write((const char*)&(this->text), sizeof(this->nbytes));
+			outbinfile.write(text, this->nbytes);
 			outbinfile.close();
 		}
 	}
@@ -97,13 +108,16 @@ namespace w9 {
 		ifstream inbinfile(file, ios::binary);
 
 		// TODO: - allocate memory here for the file content
-		char* content = new char[this->nbytes];
+		delete[] text;
+		text = new char[this->nbytes];
 
 		// TODO: - read the content of the binary file
-		inbinfile.read((char*)&content, sizeof(this->nbytes));
+		inbinfile.read(text, this->nbytes);
+		text[nbytes - 1] = '\0';
 
 		*ofs << "\n" << nbytes << " bytes copied from binary file "
 			<< file << " into memory.\n";
+		inbinfile.close();
 
 		encoded = true;
 

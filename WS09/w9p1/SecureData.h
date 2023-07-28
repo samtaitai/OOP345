@@ -8,7 +8,7 @@
 namespace w9
 {
 	class Cryptor {
-	public:
+	public: //key = 'A' = 101
 		char operator()(char in, char key) const { return in ^ key; }
 	};
 	void converter(char*, char, int, const Cryptor&);
